@@ -60,9 +60,14 @@ class UserContoller extends Controller
      * @param  \App\Models\users  $users
      * @return \Illuminate\Http\Response
      */
-    public function show(User $users)
+    public function show(User $user)
     {
-        //
+        $user->ekstract();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User profile',
+            'data' => $user
+        ]);
     }
 
     /**
@@ -156,7 +161,6 @@ class UserContoller extends Controller
             ]);
         }
     }
-
     public function verif(Request $request)
     {
         // Verif user from token google auth and save to database

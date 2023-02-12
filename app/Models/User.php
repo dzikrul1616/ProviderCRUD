@@ -49,4 +49,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function ekstract()
+    {
+        $this->photo = $this->photo ? url('images/' . $this->photo) : null;
+        $this->sppd = $this->sppd ? url('images/' . $this->sppd) : null;
+        $this->ktm = $this->ktm ? url('images/' . $this->ktm) : null;
+        $this->transfer = $this->transfer ? url('images/' . $this->transfer) : null;
+    }
 }
