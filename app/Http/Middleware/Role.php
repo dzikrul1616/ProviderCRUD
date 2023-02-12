@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class Role
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next, ...$roles)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        if (isset($roles[0])) {
+            if (!in_array(auth()->user()->role, $roles)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Not have access',
+                    'role' => auth()->user()->role
+                ]);
+            }
+        }
+        return $next($request);
+    }
+}
