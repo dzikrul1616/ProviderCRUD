@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\UserContoller;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BeritaApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,14 +38,17 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:api');
 
-    // Route::middleware(['auth:admin', 'admin'])->group(function () {
-    //     // your admin routes here
-    //     Route::post('/logout',  [UserController::class, 'logout']);
-    // });
 });
 
 Route::prefix('admin')->middleware('auth:api','role:admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index']);
-    Route::get('/{id}', [AdminController::class, 'show']);
+    Route::get('/user', [AdminController::class, 'index']);
+    Route::get('/user/{id}', [AdminController::class, 'show']);
 });
 
+Route::prefix('admin')->middleware('auth:api','role:admin,humas')->group(function () {
+    Route::post('/berita/create', [BeritaApiController::class, 'store']);
+    Route::post('/berita/{id}', [BeritaApiController::class, 'update']);
+    Route::get('/berita', [BeritaApiController::class, 'index']);
+    Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
+    Route::delete('/berita/{id}', [BeritaApiController::class, 'destroy']);
+});
