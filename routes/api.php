@@ -41,3 +41,6 @@ Route::prefix('admin')->group(function () {
     //     Route::post('/logout',  [UserController::class, 'logout']);
     // });
 });
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::post('/admin/assign-role', [App\Http\Controllers\Admin\AdminController::class, 'assignRole']);
+});
