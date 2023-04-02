@@ -167,7 +167,8 @@ class UserContoller extends Controller
 
         // get bearer token from request
         $token = $request->bearerToken();
-        $CLIENT_ID = "47864087896-rrsicrb1i01oc7u7hb8gt04vl9t855ik.apps.googleusercontent.com";
+
+        $CLIENT_ID = "75508756988-36the29ri3spvg0fk7amr7cqn1k1qrl1.apps.googleusercontent.com";
         $client = new Google_Client(['client_id' => $CLIENT_ID]);
         $payload = $client->verifyIdToken($token);
         if ($payload) {
@@ -218,22 +219,27 @@ class UserContoller extends Controller
             'institution' => 'required',
             'phone' => 'required|numeric',
             'transport' => 'required',
+            'allergy' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sppd' => 'required|mimes:pdf|max:2048',
+            'sksk' => 'required|mimes:pdf|max:2048',
             'ktm' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'transfer' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         // Upload file
         $photo = $request->file('photo');
         $sppd = $request->file('sppd');
+        $sksk = $request->file('sksk');
         $ktm = $request->file('ktm');
         $transfer = $request->file('transfer');
         $photoName = "Photo-" . $request->user()->id . "-" . time() . '.' . $photo->extension();
         $sppdName = "SPPD-" . $request->user()->id . "-" . time() . '.' . $sppd->extension();
+        $skskName = "sksk-" . $request->user()->id . "-" . time() . '.' . $sksk->extension();
         $ktmName = "KTM-" . $request->user()->id . "-" . time() . '.' . $ktm->extension();
         $transferName = "Transfer-" . $request->user()->id . "-" . time() . '.' . $transfer->extension();
         $photo->move(public_path('images'), $photoName);
         $sppd->move(public_path('images'), $sppdName);
+        $sksk->move(public_path('images'), $skskName);
         $ktm->move(public_path('images'), $ktmName);
         $transfer->move(public_path('images'), $transferName);
         // remove old file
@@ -242,6 +248,9 @@ class UserContoller extends Controller
         }
         if (file_exists(public_path('images/' . $users->sppd)) && $users->sppd) {
             unlink(public_path('images/' . $users->sppd));
+        }
+        if (file_exists(public_path('images/' . $users->sksk)) && $users->sksk) {
+            unlink(public_path('images/' . $users->sksk));
         }
         if (file_exists(public_path('images/' . $users->ktm)) && $users->ktm) {
             unlink(public_path('images/' . $users->ktm));
@@ -256,8 +265,10 @@ class UserContoller extends Controller
                 'institution' => $request->institution,
                 'phone' => $request->phone,
                 'transport' => $request->transport,
+                'allergy' => $request->allergy,
                 'photo' => $photoName,
                 'sppd' => $sppdName,
+                'sksk' => $skskName,
                 'ktm' => $ktmName,
                 'transfer' => $transferName,
                 'role' => 1

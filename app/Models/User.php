@@ -23,11 +23,13 @@ class User extends Authenticatable
         'password',
         'institution',
         'phone',
+        'allergy',
         'transport',
         'photo',
         'sppd',
         'ktm',
         'transfer',
+        'sksk',
         'role',
     ];
 
@@ -55,5 +57,6 @@ class User extends Authenticatable
         $this->sppd = $this->sppd ? url('images/' . $this->sppd) : null;
         $this->ktm = $this->ktm ? url('images/' . $this->ktm) : null;
         $this->transfer = $this->transfer ? url('images/' . $this->transfer) : null;
+        $this->sksk = $this->sksk ? url('images/' . $this->sksk) : null;
     }
 }
