@@ -77,6 +77,7 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'login success',
+            'data' => $admin,
             'token' => $admin->createToken('Admin Access Token')->accessToken
         ]);
     }
