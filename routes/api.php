@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserContoller;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,9 @@ Route::prefix('admin')->group(function () {
     //     Route::post('/logout',  [UserController::class, 'logout']);
     // });
 });
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::post('/admin/assign-role', [App\Http\Controllers\Admin\AdminController::class, 'assignRole']);
+
+Route::prefix('admin')->middleware('auth:api','role:admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index']);
+    Route::get('/{id}', [AdminController::class, 'show']);
 });
+
