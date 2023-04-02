@@ -48,7 +48,8 @@ Route::prefix('admin')->middleware('auth:api','role:admin')->group(function () {
 Route::prefix('admin')->middleware('auth:api','role:admin,humas')->group(function () {
     Route::post('/berita/create', [BeritaApiController::class, 'store']);
     Route::post('/berita/{id}', [BeritaApiController::class, 'update']);
-    Route::get('/berita', [BeritaApiController::class, 'index']);
-    Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
     Route::delete('/berita/{id}', [BeritaApiController::class, 'destroy']);
 });
+
+Route::get('/berita', [BeritaApiController::class, 'index']);
+Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
