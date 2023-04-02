@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\UserContoller;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +32,9 @@ Route::resource('profile', ProfileController::class)->middleware('auth:sanctum')
 // });
 
 Route::prefix('admin')->group(function () {
-    Route::post('/register', [UserController::class, 'register']);
-    Route::post('/login', [UserController::class, 'login']);
-    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:api');
+    Route::post('/register', [AdminAuthController::class, 'register']);
+    Route::post('/login', [AdminAuthController::class, 'login']);
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:api');
 
     // Route::middleware(['auth:admin', 'admin'])->group(function () {
     //     // your admin routes here
