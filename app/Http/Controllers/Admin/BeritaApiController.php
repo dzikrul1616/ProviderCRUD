@@ -48,7 +48,7 @@ class BeritaApiController extends Controller
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $filename = "berita-". time() . '_' . $file->getClientOriginalName();
             Storage::putFileAs('public/photos', $file, $filename);
             $validatedData['photo'] = $filename;
         }
@@ -102,7 +102,7 @@ class BeritaApiController extends Controller
 
             // Store the new photo file
             $photoFile = $request->file('photo');
-            $photoFilename = time() . '_' . $photoFile->getClientOriginalName();
+            $photoFilename ="berita-". time() . '_' . $photoFile->getClientOriginalName();
             $photoFile->storeAs('public/photos', $photoFilename);
 
             // Update the Berita model with the new photo filename
