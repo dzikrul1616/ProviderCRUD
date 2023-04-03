@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('template')}}/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="{{asset('template')}}/assets/img/favicon.png">
+  
   <title>
     Argon Dashboard 2 by Creative Tim
   </title>
@@ -37,13 +38,12 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="{{url('cek_login')}}" >
-                    @csrf
+                <form id="login-form" method="post" action="" >
                     <div class="mb-3">
-                      <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
+                      <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
                     </div>
                     <div class="mb-3">
-                      <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                      <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                     </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -96,3 +96,47 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+<script>
+$(document).ready(function() {
+// submit form data using AJAX
+$("#login-form").submit(function(event) {
+  // stop form from submitting normally
+  event.preventDefault();
+  // get form data
+  var formData = {
+    email: $("#email").val(),
+    password: $("#password").val(),
+    _token: '{{ csrf_token() }}',
+  };
+  // submit form data using AJAX
+  $.ajax({
+    type: "POST",
+    url: "{{url('api/cek_login')}}",  // replace with your backend endpoint
+    data: formData,
+    dataType: "json",
+    encode: true,
+    success: function(data) {
+      // handle successful login
+      console.log(data);
+       localStorage.setItem("token", data.token);
+       window.location.href = "http://localhost:8080/dashboard-default";
+    },
+    error: function(response) {
+      console.log(response.responseJSON.message)
+      Swal.fire({
+        icon: 'error',
+        type: 'error',
+        title: 'Gagal!',
+        text: response.responseJSON.message
+      });
+      // handle login error
+    //    console.error("Login error: " + xhr.responseText);
+    }
+  });
+});
+});
+</script>

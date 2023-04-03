@@ -12,10 +12,23 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-
     public function register() 
     {
         return view('auth.register');
+    }
+
+    public function getUserById($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'ID tidak ada'], 404);
+        }
+        $result = [
+            'success' => true,
+            'data' => $user,
+            'message' => 'Berhasil Mengambil ID'
+        ];
+        return response()->json($result, 200);
     }
     public function getUser()
     {
@@ -31,79 +44,124 @@ class AuthController extends Controller
 
     public function storeRegister(Request $request) 
     {
-
-        $newKonfirmasi = '';
-        $newSuratIzin = '';
         // $request->validate([
         //     'name' => 'required',
         //     'email' => 'required|email|unique:users',
         //     'password' => 'required|min:6|confirmed',
         // ]);
+        
         $user = new User();
         $user->name = $request->nama_lengkap;
         $user->alergi = $request->alergi;
-        if($request->file('photo'))
-        {
-          $extension = $request->file('photo')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('photo')->storeAs('img', $newName);
+        if ($request->hasFile('foto_almamater')) {
+            $request->validate([
+                'foto_almamater' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('foto_almamater');
+            $path = $file->store('public/');
+            $user->photo = basename($path);
+            $url = url('storage/' . $path);
         }
-        $user->photo = $request->foto_almamater;
         $user->institution = $request->asal_instansi;
         $user->phone = $request->no_hp;
-        if($request->file('transport'))
-        {
-          $extension = $request->file('transport')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('transport')->storeAs('img', $newName);
-        }
         $user->transport = $request->transportasi;
-        if($request->file('sppd'))
-        {
-          $extension = $request->file('sppd')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('sppd')->storeAs('img', $newName);
+        if (in_array($request->transportasi, ['Bis', 'Pesawat', 'Kereta Api'])) {
+            $request->validate([
+                'foto_tiket' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+            $file = $request->file('foto_tiket');
+            if ($request->hasFile('foto_tiket')) {
+                $request->validate([
+                    'foto_tiket' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+                ]);
+        
+                $file = $request->file('foto_tiket');
+                $path = $file->store('public/');
+                $user->tiket = basename($path);
+                $url = url('storage/' . $path);
+              
+            }
+        } else {
+            $user->tiket = '0';
         }
-        $user->sppd = $request->sppd;
-        if($request->file('ktm'))
-        {
-          $extension = $request->file('ktm')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('ktm')->storeAs('img', $newName);
+        if ($request->hasFile('sppd')) {
+            $request->validate([
+                'sppd' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('sppd');
+            $path = $file->store('public/');
+            $user->sppd = basename($path);
+            $url = url('storage/' . $path);
+          
         }
-        $user->ktm = $request->ktm;
-        if($request->file('transfer'))
-        {
-          $extension = $request->file('transfer')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('transfer')->storeAs('img', $newName);
+        if ($request->hasFile('ktm')) {
+            $request->validate([
+                'ktm' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('ktm');
+            $path = $file->store('public/');
+            $user->ktm = basename($path);
+            $url = url('storage/' . $path);
+          
         }
-        $user->transfer = $request->bukti_pelunasan;
-        if($request->file('nota'))
-        {
-          $extension = $request->file('nota')->getClientOriginalExtension();
-          $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('nota')->storeAs('img', $newName);
+        if ($request->hasFile('bukti_pelunasan')) {
+            $request->validate([
+                'bukti_pelunasan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('bukti_pelunasan');
+            $path = $file->store('public/');
+            $user->transfer = basename($path);
+            $url = url('storage/' . $path);
+          
         }
-        $user->nota = $request->nota_kesepakatan;
-        if($request->file('konfirmasi'))
-        {
-          $extension = $request->file('konfirmasi')->getClientOriginalExtension();
-          $newKonfirmasi = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('konfirmasi')->storeAs('img', $newKonfirmasi);
+        if ($request->hasFile('nota_kesepakatan')) {
+            $request->validate([
+                'nota_kesepakatan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('nota_kesepakatan');
+            $path = $file->store('public/');
+            $user->nota = basename($path);
+            $url = url('storage/' . $path);
+          
         }
-        $request['konfirmasi'] = $newKonfirmasi;
+        if ($request->hasFile('konfirmasi_kedatangan')) {
+            $request->validate([
+                'konfirmasi_kedatangan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('konfirmasi_kedatangan');
+            $path = $file->store('public/');
+            $user->konfirmasi = basename($path);
+            $url = url('storage/' . $path);
+          
+        }
 
-        if($request->file('surat_izin'))
-        {
-          $extension = $request->file('surat_izin')->getClientOriginalExtension();
-          $newSuratIzin = $request->name.'-'.now()->timestamp.'.'.$extension;
-          $request->file('surat_izin')->storeAs('img', $newSuratIzin);
+        if ($request->hasFile('surat_izin')) {
+            $request->validate([
+                'surat_izin' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+    
+            $file = $request->file('surat_izin');
+            $path = $file->store('public/');
+            $user->surat_izin =basename($path);
+            $url = url('storage/' . $path);
+    
         }
-        $request['surat_izin'] = $newSuratIzin;
-
         $user->email_verified_at = '0';
         $user->role = 'user';
+        $user->verified = '0';
+        $user->penjemput = 'Belum tersedia';
+        $user->lo = 'Belum tersedia';
+        $user->linkig1 = '0';
+        $user->linkig2 = '0';
+        $user->wa1 = '0';
+        $user->wa2 = '0';
+        $user->klotter = 'Belum tersedia';
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
@@ -111,24 +169,74 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    public function auth(Request $request)
-    {
+    // public function auth(Request $request)
+    // {
         
-      $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-      ]);
-      if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return redirect()->intended('http://localhost:8080/halamanuser');
-      }
-      session()->flash('error', 'Login gagal email atau password salah!');
-      return redirect('/login');
+    //   $credentials = $request->validate([
+    //     'email' => ['required', 'email'],
+    //     'password' => ['required'],
+    //   ]);
+    //   if (Auth::attempt($credentials)) {
+    //     $request->session()->regenerate();
+    //     return redirect()->intended('http://localhost:8080/halamanuser');
+    //   }
+    //   session()->flash('error', 'Login gagal email atau password salah!');
+    //   return redirect('/login');
 
-    }
+    // }
+
+    public function auth(Request $request)
+     {
+         $email = $request->input('email');
+         $password = $request->input('password');
+
+         $credentials = [
+             'email' => $email,
+             'password' => $password,
+         ];
+
+         if (Auth::attempt($credentials)) {
+             // Jika autentikasi berhasil, kirim respon dengan status 200 OK
+              $user = Auth::user();
+              $token = $user->createToken('token')->plainTextToken;
+              return response()->json([
+                 'status' => 'success',
+                 'message' => 'Login berhasil',
+                 'user' => $user,
+                 'token' => $token
+             ], 200);
+           } else {
+               // Jika autentikasi gagal, coba lagi dengan mengubah password menjadi terbcrypt
+               $user = User::where('email', $email)->first();
+               if ($user && \Hash::check($password, $user->password)) {
+                   Auth::login($user);
+                   return response()->json([
+                    'status' => 'success',
+                    'message' => 'Login berhasil',
+                    'user' => $user,
+                    'token' => $token
+                   ], 200);
+               } else {
+                   // Jika autentikasi gagal lagi, kirim respon dengan status 401 Unauthorized
+                   return response()->json([
+                       'message' => 'Email atau password salah'
+                   ], 401);
+               }
+           }
+       }
 
     public function logout()
     {
+        
+    }
+    public function deleteadmin($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
 
+        return response()->json([
+          'message' => 'Data berhasil dihapus!',
+          'success' => true,
+        ], 200);
     }
 }

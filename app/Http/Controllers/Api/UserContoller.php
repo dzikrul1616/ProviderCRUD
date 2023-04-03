@@ -10,6 +10,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Exception;
@@ -321,5 +322,45 @@ class UserContoller extends Controller
             'status' => 'success',
             'message' => 'User logout'
         ]);
+    }
+    public function update_penjemputan(Request $request, $id)
+    {
+      $penjemput = $request->input('penjemput');
+      $lo = $request->input('lo');
+      $wa1 = $request->input('wa1');
+      $wa2 = $request->input('wa2');
+      $ig1 = $request->input('ig1');
+      $ig2 = $request->input('ig2');
+      $kloter = $request->input('kloter');
+
+      DB::table('users')
+      ->where('id', $id)
+      ->update([
+        'penjemput' => $penjemput,
+        'lo' => $lo,
+        'linkig1' => $ig1,
+        'linkig2' => $ig2,
+        'wa1' => $wa1,
+        'wa2' => $wa2,
+        'klotter' => $kloter,
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data Berhasil Di Update'
+    ]);
+    }
+    public function update_verified(Request $request, $id)
+    {
+      $verified = $request->input('verified');
+
+      DB::table('users')
+      ->where('id', $id)
+      ->update([
+        'verified' => $verified,
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'User Berhasil di verifikasi'
+    ]);
     }
 }

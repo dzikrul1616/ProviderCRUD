@@ -39,7 +39,7 @@
             </li>
           </ul>
           <div>
-          <a href="{{url('auth/google')}}" class="btn btn-secondary">My Account</a>
+          <a href="http://localhost:8080/signin" class="btn btn-secondary">My Account</a>
           </div>
           
         </div>

@@ -149,6 +149,7 @@
                                   type="file"
                                   id="example-file-input"
                                   name="nota_kesepakatan"
+                                  required
                                 />
                                 <a href="#">
                                     <h6>Klik untuk mengunduh template berkas</h6>
@@ -183,13 +184,23 @@
                               </div>
                               <div class="col-md-6">
                                 <label for="example-text-input" class="form-control-label">Transportasi</label>
-                                <select name="transportasi" class="form-control" v-model="selectedInstansi1">
+                                <select name="transportasi" class="form-control" id="transportasi-select"> 
                                   <option value="" disabled selected style="text-align: center;">---------- Klik untuk pilih kendaraan ----------</option>
                                   <option value="Pribadi">Pribadi</option>
                                   <option value="Kereta Api">Kereta Api</option>
                                   <option value="Pesawat">Pesawat</option>
                                   <option value="Bis">Bis</option>
                                 </select>
+                              </div>
+                              <div class="col-md-6" id="form-file">
+                                <label for="example-file-input" class="form-control-label">Foto Tiket</label>
+                                <input
+                                  class="form-control"
+                                  type="file"
+                                  name="foto_tiket"
+                                  id="example-file-input"
+                                />
+                                <p class="text-xs text-muted mt-2" v-if="fileName"></p>
                               </div>
                             </div>
                           </div>
@@ -210,8 +221,18 @@
 </center>
 
 
-
-
+  <script>
+    document.getElementById("transportasi-select").addEventListener("change", function() {
+        var value = this.value;
+        var formFile = document.getElementById("form-file");
+        if (value == "Bis" || value == "Kereta Api" || value == "Pesawat") {
+            formFile.style.display = "block";
+        } else {
+            formFile.style.display = "none";
+        }
+    });
+  </script>
+  <script src="{{asset('template')}}/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="{{asset('template')}}/assets/js/core/popper.min.js"></script>
   <script src="{{asset('template')}}/assets/js/core/bootstrap.min.js"></script>
   <script src="{{asset('template')}}/assets/js/plugins/perfect-scrollbar.min.js"></script>
