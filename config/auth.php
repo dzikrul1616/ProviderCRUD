@@ -40,14 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-            'hash' => false,
-        ],
         'api' => [
-            'driver' => 'passport',
-            'provider' => 'admins',
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
@@ -73,10 +68,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -119,7 +111,5 @@ return [
     */
 
     'password_timeout' => 10800,
-
-
 
 ];

@@ -7,25 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'title',
-        'content',
-        'photo',
+        'judul',
+        'deskripsi',
+        'file',
     ];
-
-    protected $casts = [
-        'id' => 'integer',
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
-    ];
-
-    public function getPhotoUrlAttribute()
-    {
-        if ($this->photo) {
-            return url('storage/photos/' . $this->photo);
-        }
-        return null;
-    }
+    use HasFactory;
 }

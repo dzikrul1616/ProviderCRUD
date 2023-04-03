@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\users;
 use Google_Client;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Exception;
+use Google_Service_Oauth2;
+
 
 use function PHPUnit\Framework\fileExists;
 
@@ -161,23 +169,56 @@ class UserContoller extends Controller
             ]);
         }
     }
+
+    public function redirectToGoogle()
+    {
+      return Socialite::driver('google')->redirect();
+    }
+    public function handleGoogleCallback(Request $request)
+     {
+    try{
+      $user = Socialite::driver('google')->user();
+      $finduser = User::where('google_id', $user->id)->first();
+      if ($finduser) {
+
+        Auth::login($finduser);
+        return redirect()->intended('http://localhost:8080/validasi');
+      }else{
+        // $payload = [
+        //     'sub' => $user->id,
+        //     'iat' => time(),
+        //     'exp' => time() + 3600 // Token akan berlaku selama 1 jam
+        // ];
+        // $jwt = JWT::encode($payload, env('JWT_SECRET'));
+        // dd($jwt);
+        $newUser = User::create([
+          'name' => $user->name,
+          'email' => $user->email,
+          'google_id' => $user->id,
+          'role' => '0',
+          'remember_token' => $token,
+          'password' => $user->password
+        ]);
+        Auth::login($newUser);
+
+        return redirect()->intended('http://localhost:8080/validasi');
+      }
+    }   catch (Exception $e)
+        {
+         dd($e->getMessage());
+        }
+    }
     public function verif(Request $request)
     {
-        // Verif user from token google auth and save to database
-
-        // get bearer token from request
         $token = $request->bearerToken();
-
-        $CLIENT_ID = "75508756988-36the29ri3spvg0fk7amr7cqn1k1qrl1.apps.googleusercontent.com";
+        $CLIENT_ID = "442598779711-ll76cokdahv4v9ps6aua7ha4i1mabuqp.apps.googleusercontent.com";
         $client = new Google_Client(['client_id' => $CLIENT_ID]);
         $payload = $client->verifyIdToken($token);
         if ($payload) {
-            // check if user exist
             $user = User::select("id", "name", "email", "role", "created_at", "updated_at")
                 ->where('email', $payload['email'])
                 ->first();
             if ($user) {
-                // user exist
                 Auth::attempt(['email' => $payload['email'], 'password' => 'password']);
                 return response()->json([
                     'status' => 'success',
@@ -186,7 +227,6 @@ class UserContoller extends Controller
                     'token' => $user->createToken('authToken')->plainTextToken
                 ]);
             } else {
-                // user not exist
                 $user = User::create([
                     'id' => $payload['sub'],
                     'name' => $payload['name'],
@@ -204,7 +244,6 @@ class UserContoller extends Controller
                 ]);
             }
         } else {
-            // Invalid ID token
             return response()->json([
                 'status' => 'error',
                 'message' => 'Invalid ID token'
@@ -219,27 +258,22 @@ class UserContoller extends Controller
             'institution' => 'required',
             'phone' => 'required|numeric',
             'transport' => 'required',
-            'allergy' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sppd' => 'required|mimes:pdf|max:2048',
-            'sksk' => 'required|mimes:pdf|max:2048',
             'ktm' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'transfer' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         // Upload file
         $photo = $request->file('photo');
         $sppd = $request->file('sppd');
-        $sksk = $request->file('sksk');
         $ktm = $request->file('ktm');
         $transfer = $request->file('transfer');
         $photoName = "Photo-" . $request->user()->id . "-" . time() . '.' . $photo->extension();
         $sppdName = "SPPD-" . $request->user()->id . "-" . time() . '.' . $sppd->extension();
-        $skskName = "sksk-" . $request->user()->id . "-" . time() . '.' . $sksk->extension();
         $ktmName = "KTM-" . $request->user()->id . "-" . time() . '.' . $ktm->extension();
         $transferName = "Transfer-" . $request->user()->id . "-" . time() . '.' . $transfer->extension();
         $photo->move(public_path('images'), $photoName);
         $sppd->move(public_path('images'), $sppdName);
-        $sksk->move(public_path('images'), $skskName);
         $ktm->move(public_path('images'), $ktmName);
         $transfer->move(public_path('images'), $transferName);
         // remove old file
@@ -248,9 +282,6 @@ class UserContoller extends Controller
         }
         if (file_exists(public_path('images/' . $users->sppd)) && $users->sppd) {
             unlink(public_path('images/' . $users->sppd));
-        }
-        if (file_exists(public_path('images/' . $users->sksk)) && $users->sksk) {
-            unlink(public_path('images/' . $users->sksk));
         }
         if (file_exists(public_path('images/' . $users->ktm)) && $users->ktm) {
             unlink(public_path('images/' . $users->ktm));
@@ -265,10 +296,8 @@ class UserContoller extends Controller
                 'institution' => $request->institution,
                 'phone' => $request->phone,
                 'transport' => $request->transport,
-                'allergy' => $request->allergy,
                 'photo' => $photoName,
                 'sppd' => $sppdName,
-                'sksk' => $skskName,
                 'ktm' => $ktmName,
                 'transfer' => $transferName,
                 'role' => 1
@@ -293,5 +322,45 @@ class UserContoller extends Controller
             'status' => 'success',
             'message' => 'User logout'
         ]);
+    }
+    public function update_penjemputan(Request $request, $id)
+    {
+      $penjemput = $request->input('penjemput');
+      $lo = $request->input('lo');
+      $wa1 = $request->input('wa1');
+      $wa2 = $request->input('wa2');
+      $ig1 = $request->input('ig1');
+      $ig2 = $request->input('ig2');
+      $kloter = $request->input('kloter');
+
+      DB::table('users')
+      ->where('id', $id)
+      ->update([
+        'penjemput' => $penjemput,
+        'lo' => $lo,
+        'linkig1' => $ig1,
+        'linkig2' => $ig2,
+        'wa1' => $wa1,
+        'wa2' => $wa2,
+        'klotter' => $kloter,
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data Berhasil Di Update'
+    ]);
+    }
+    public function update_verified(Request $request, $id)
+    {
+      $verified = $request->input('verified');
+
+      DB::table('users')
+      ->where('id', $id)
+      ->update([
+        'verified' => $verified,
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'User Berhasil di verifikasi'
+    ]);
     }
 }

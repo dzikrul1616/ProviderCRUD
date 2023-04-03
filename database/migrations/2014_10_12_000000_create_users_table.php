@@ -22,12 +22,10 @@ return new class extends Migration
             $table->string('institution')->nullable();
             $table->string('phone')->nullable();
             $table->string('transport')->nullable();
-            $table->string('allergy')->nullable();
             $table->string('photo')->nullable();
             $table->string('sppd')->nullable();
             $table->string('ktm')->nullable();
             $table->string('transfer')->nullable();
-            $table->string('sksk')->nullable();
             $table->string('role')->default(0);
             $table->rememberToken();
             $table->timestamps();
