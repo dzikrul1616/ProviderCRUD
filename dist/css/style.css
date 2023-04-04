@@ -1,0 +1,386 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    z-index: 3;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    z-index: 2;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 24px;
+    background: linear-gradient(90deg, #BC9743 0%, #423D3A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    color: #9C9C9C;
+    font-size: 16px;
+}
+
+.nav-link:hover::after {
+    content: '';
+    display: block;
+    border-bottom: 3px transparent;
+    background: linear-gradient(90deg, #BC9743 -9.21%, #5F4F3C 75.63%);
+    width: 50%;
+    margin: auto;
+    padding-bottom: 4px;
+    margin-top: 20px;
+    border-radius: 25px;
+    margin-bottom: -25px;
+    color: #BC9743
+}
+
+.contact-info {
+    border-radius: 25px;
+    bottom: 100px; 
+}
+  
+.btn.btn-secondary {
+    background:rgba(188, 151, 67, 0.1);
+    border-radius: 12px;
+    padding: 12px 24px;
+    gap: 10px;
+    border-style: none;
+    color: #BC9743;
+}
+
+.hero-tagline{
+    position: absolute;
+    width: 516px;
+    height: 156px;
+    left: 160px;
+    top: 234px;
+    font-family: 'Poppins';
+    font-size: 52px;
+    line-height: 60px;
+    color: #232631;
+}
+
+.carousel.slide {
+    padding-top: 100px;
+}
+
+.caraousel-caption {
+    margin-bottom: 80px;
+    margin-top: -150px;
+    margin-left: -10px;
+    border-color: blue;
+}
+
+.btn-outline-light{
+    background: #816B3E;
+    font-size: 18px;
+    margin-left: 2050px;
+    border-color:#816B3E;
+}
+.btn-outline-light:hover{
+    background: #816B3E;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-left: 1050px;
+    border-color:#816B3E;
+}
+@media (min-width: 620px) {
+    .btn-outline-light{
+        margin-left: 1050px;
+        margin-top: 100px;
+    }
+}
+
+.logo_internal {
+    margin-top: 80px;
+}
+
+.info-panel {
+    background-color: #232631;
+}
+
+.partner {
+    margin-top: 140px;
+    text-align: center;
+    color: rgba(35, 38, 49, 0.8);
+}
+
+.asset-img {
+    margin : 45px;
+}
+
+.pengenalan {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.h2sect3 {
+    background: linear-gradient(90deg, #BC9743 0%, #423D3A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.desc_pengenalan {
+    text-align: center;
+    /* margin-top: 20px; */
+    /* margin-left: 50%;
+    margin-right: 7%;
+    margin-top: 60px; */
+    /* background-image: url(asset/Vectorsect3.png); */
+    font-size: 20px;
+}
+
+.fector{
+    z-index: 1;
+    zoom: 100%;
+    margin-top: -100px;
+}
+
+.logos{
+    top: 40px;
+    left: 0;
+    /* margin-left: -600px;
+    margin-top: 100px; */
+}
+
+.text-pengenalan{
+    margin: 20px;
+    font-size: 20pt;
+    padding-top: 80px;
+}
+
+.text-mukernas{
+    margin-bottom: -100px;
+}
+
+@media (min-width: 620px) {
+    .responsive{
+        flex-direction:column;
+    }   
+    .fector{
+        zoom: 160%
+    } 
+    .logos {
+        top: 250px;
+    }
+}
+
+.vectorsect3 {
+    position: absolute;
+    /* margin-top: -430px; */
+    zoom: 170%;
+    z-index: 0;
+    margin-left: -70px;
+}
+
+
+.filosofi {
+    text-align: center;
+    margin-top: 80px;
+    font-weight: 600;
+}
+
+.h2sect4 {
+    background: linear-gradient(90deg, #BC9743 0%, #423D3A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.berita {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.desc_berita {
+    color: #7B7B7B;
+    size: 16px;
+    margin-top: 20px;
+}
+
+.card_berita {
+    margin-top: 50px;
+    border-radius: 24px;
+    box-shadow: 0px 14px 25px #F2F2F2;
+}
+
+.btn.btn-primary {
+    background: #BC9743;
+    border-radius: 12px;
+    border-color: transparent;
+    align-items: flex-start;
+}
+
+.btn-viewmore {
+    border-radius: 25px;
+    border-color: #816B3E;
+    padding: 10px;
+    margin-top: 45px;
+    margin-bottom: 100px;
+}
+.btn-viewmore:hover {
+    border-radius: 25px;
+    border-color: #BC9743;
+    background-color: #BC9743;
+    padding: 10px;
+}
+
+.bgfaq {
+    border-radius: 24px;
+}
+
+.bg1faq {
+    position: absolute;
+    z-index: -1;
+    margin-top: -500px;
+    margin-left: 700px ;
+    zoom: 120%;
+}
+
+.footer {
+    margin-top: 250px;
+    zoom: 107%;
+    margin-left: -12px;
+}
+
+.footer-backgorund{
+    position: relative;
+    width: 1430px;
+    height: 400px;
+    background-image: linear-gradient(to right, #BC9743 -9.84%, #AA8B42 12.29%, #816B3E 36.89%, #423D3A 110.47%);
+}
+
+.footer-main{
+    display: flex;
+    flex-direction: row;
+}
+
+.img-fornas{
+    margin-top: 100px;
+    width: 300px;
+    height: 300px;
+}
+
+.img-fornassosma{
+    margin-top: 40px;
+}
+
+.colom1{
+    display: flex;
+    flex-direction: column;
+}
+
+.img-location{
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.address{
+    display: flex;
+    flex-direction: row;
+    color: #FFFFFF;
+    width: 300px;
+}
+
+.copyright{
+    margin-left: 20px;
+    margin-top: 80px;
+    color: #FFFFFF;
+}
+
+.colom2{
+    display: flex;
+    flex-direction: column;
+    margin-left: 150px;
+    margin-top: 80px;
+    color: #FFFFFF;
+}
+
+.socialmedia{
+    margin-left: 30px;
+}
+
+.list1{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.img-tiktok{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.list2{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.img-ig{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.img-eksplore{
+    width: 500px;
+    height: 400px;
+}
+
+.responsive{
+    display: flex;
+    flex-direction: row;
+}
+
+.border{
+    border: 1px solid red;
+}
+
+.border2{
+    border: 1px solid black;
+}
+
+@media (max-width: 620px) {
+    .footer-backgorund{
+        width: 100%;
+        height: 500px;
+    }
+    .img-fornas{
+        display: none;
+        width: 30px;
+        height: 30px;
+    }
+    .address{
+        font-size: 8px;
+        margin-top: 20px;
+        width: 180px;
+    }
+    .colom2{
+        font-size: 8px;
+        margin-top: 180px;
+        width: 150px;
+        height: 100px;
+    }
+    .copyright{
+        font-size: 8px;
+        width: 200px;
+    }
+    .img-eksplore{
+        display: none;
+    }
+    .bg1faq{
+        display: none;
+    }
+}
