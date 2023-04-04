@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Illuminate\Support\Facades\Http;
 class AuthController extends Controller
 {
-    public function login() 
+    public function login()
     {
         return view('auth.login');
     }
-    public function register() 
+    public function getInstansi()
     {
-        return view('auth.register');
+        $response = HTTP::get('https://api.ahmfarisi.com/perguruantinggi/');
+        $bodyJson = $response->json('data');
+        return response()->json($bodyJson);
     }
 
     public function getUserById($id)
@@ -42,14 +45,14 @@ class AuthController extends Controller
         return response()->json($result, 200);
     }
 
-    public function storeRegister(Request $request) 
+    public function storeRegister(Request $request)
     {
         // $request->validate([
         //     'name' => 'required',
         //     'email' => 'required|email|unique:users',
         //     'password' => 'required|min:6|confirmed',
         // ]);
-        
+
         $user = new User();
         $user->name = $request->nama_lengkap;
         $user->alergi = $request->alergi;
@@ -57,7 +60,7 @@ class AuthController extends Controller
             $request->validate([
                 'foto_almamater' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('foto_almamater');
             $path = $file->store('public/');
             $user->photo = basename($path);
@@ -75,12 +78,12 @@ class AuthController extends Controller
                 $request->validate([
                     'foto_tiket' => 'mimes:jpeg,jpg,png,pdf|max:2048',
                 ]);
-        
+
                 $file = $request->file('foto_tiket');
                 $path = $file->store('public/');
                 $user->tiket = basename($path);
                 $url = url('storage/' . $path);
-              
+
             }
         } else {
             $user->tiket = '0';
@@ -89,68 +92,68 @@ class AuthController extends Controller
             $request->validate([
                 'sppd' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('sppd');
             $path = $file->store('public/');
             $user->sppd = basename($path);
             $url = url('storage/' . $path);
-          
+
         }
         if ($request->hasFile('ktm')) {
             $request->validate([
                 'ktm' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('ktm');
             $path = $file->store('public/');
             $user->ktm = basename($path);
             $url = url('storage/' . $path);
-          
+
         }
         if ($request->hasFile('bukti_pelunasan')) {
             $request->validate([
                 'bukti_pelunasan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('bukti_pelunasan');
             $path = $file->store('public/');
             $user->transfer = basename($path);
             $url = url('storage/' . $path);
-          
+
         }
         if ($request->hasFile('nota_kesepakatan')) {
             $request->validate([
                 'nota_kesepakatan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('nota_kesepakatan');
             $path = $file->store('public/');
             $user->nota = basename($path);
             $url = url('storage/' . $path);
-          
+
         }
         if ($request->hasFile('konfirmasi_kedatangan')) {
             $request->validate([
                 'konfirmasi_kedatangan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('konfirmasi_kedatangan');
             $path = $file->store('public/');
             $user->konfirmasi = basename($path);
             $url = url('storage/' . $path);
-          
+
         }
 
         if ($request->hasFile('surat_izin')) {
             $request->validate([
                 'surat_izin' => 'mimes:jpeg,jpg,png,pdf|max:2048',
             ]);
-    
+
             $file = $request->file('surat_izin');
             $path = $file->store('public/');
             $user->surat_izin =basename($path);
             $url = url('storage/' . $path);
-    
+
         }
         $user->email_verified_at = '0';
         $user->role = 'user';
@@ -171,7 +174,7 @@ class AuthController extends Controller
 
     // public function auth(Request $request)
     // {
-        
+
     //   $credentials = $request->validate([
     //     'email' => ['required', 'email'],
     //     'password' => ['required'],
@@ -227,7 +230,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        
+
     }
     public function deleteadmin($id)
     {

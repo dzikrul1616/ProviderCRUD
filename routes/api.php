@@ -20,6 +20,7 @@ use App\Http\Controllers\AuthController;
 */
 // Auth user
 Route::get('users', [AuthController::class, 'getUser']);
+Route::get('get-instansi', [AuthController::class, 'getInstansi']);
 Route::post('cek_login', [AuthController::class, 'auth']);
 Route::get('users/{id}', [AuthController::class, 'getUserById']);
 

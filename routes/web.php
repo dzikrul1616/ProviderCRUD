@@ -18,9 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/login', 'login');
-    Route::get('/register', 'register');
     Route::post('/post-register', 'storeRegister');
     Route::post('cek_login', 'auth');
 });
