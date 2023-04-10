@@ -1,0 +1,38 @@
+
+{
+  "orang":[  
+  { "nama": "Aku",    
+    "no_hp": "+6281234567890",    
+    "alamat": "Jl. Pahlawan No. 123, Jakarta Selatan",    
+    "pendidikan_terakhir": "S1 Teknik Informatika",    
+    "pekerjaan": 
+    [      
+      {   
+        "nama_pekerjaan": "Front-end Developer",       
+        "tahun": "2018 - Sekarang"     
+      },     
+      {       
+        "nama_pekerjaan": "Back-end Developer",        
+        "tahun": "2016 - 2018"      
+      }   
+    ]
+  },
+  {
+    "nama": "Jane Doe",
+    "no_hp": "+6280987654321",
+    "alamat": "Jl. Veteran No. 456, Bandung",
+    "pendidikan_terakhir": "S2 Manajemen",
+    "pekerjaan": 
+    [
+      {
+        "nama_pekerjaan": "Marketing Manager",
+        "tahun": "2019 - Sekarang"
+      },
+      {
+        "nama_pekerjaan": "Sales Representative",
+        "tahun": "2017 - 2019"
+      }
+    ]
+  }
+]
+}
