@@ -1,322 +1,403 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mukernas Fornas</title>
-    <link href="{{asset('frontend/bootstrap/bootstrap.css')}}" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!--font google-->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!--my style-->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/style.css">
-    <!--logo title-->
-    <link rel="icon" href="{{asset('frontend')}}/asset/logo mukernas-01 1.png" type="image/x-icon">
-  </head>
+    <title>Mukernas FORNAS</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <body>
-    <!--navbar-->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary position-fixed w-100">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="{{asset('frontend')}}/asset/logo mukernas-01 1.png" alt="Bootstrap" width="80" height="64">Fornas SOSMA</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item mx-2">
-              <a class="nav-link home" aria-current="page" href="#">Beranda</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="#pengenalan">Tentang</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="#berita">Berita</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="#faq">FAQ</a>
-            </li>
-          </ul>
-          <div>
-          <a href="http://localhost:8080/signin" class="btn btn-secondary">My Account</a>
-          </div>
+    <!-- Favicons -->
+    <link href="{{ asset('Medicio') }}/assets/img/favicon.png" rel="icon">
+    <link href="{{ asset('Medicio') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('Medicio') }}/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="{{ asset('Medicio') }}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('Medicio') }}/assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: Medicio
+  * Updated: Mar 10 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            <a href="{{ url('/') }}" class="img-fluid logo me-auto"><img
+                    src="{{ asset('frontend') }}/asset/logo mukernas-01 1.png" alt=""> <span>Fornas
+                    SOSMA</span> </a>
+            <center>
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li><a class="nav-link scrollto " href="#hero">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">About</a></li>
+                        <li><a class="nav-link scrollto" href="#berita">Berita</a></li>
+                        <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+            </center>
+            <a href="https://welcome.mukernasfornassosma.site/" class="myAccount">My Account</a>
 
         </div>
-      </div>
-    </nav>
-    <!--end navbar-->
+    </header><!-- End Header -->
 
-    <!--carousel-->
-    <div id="carouselExample" class="carousel slide">
-      <div class="carousel-inner container">
-        <div class="carousel-item active mt-4">
-          <img src="{{asset('frontend')}}/asset/header.png" class="d-block w-100" alt="...">
-          <div class="caraousel-caption border">
-            <a class="btn btn-outline-light d-inline px-4"  href="#pengenalan" >Mulai Jelajah</a>
-          </div>
-        </div>
-        <div class="carousel-item mt-4">
-          <img src="{{asset('frontend')}}/asset/header2.png" class="d-block w-100" alt="...">
-        </div>
-        <!--<div class="carousel-item">
-          <img src="..." class="" alt="...">
-        </div>-->
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <!--end carousel-->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active"
+                    style="background-image: url({{ asset('Medicio') }}/assets/img/slide-1.png)">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 icon-box mt-2 mt-lg-0">
+                                <i class="fa fa-map-marker-alt fa-2x"></i> <span></span>
+                                <h4>Universitas Brawijaya</h4>
+                                <p style="color: #848484">Jl. Veteran Malang, 65145</p>
+                            </div>
+                            <div class="col-md-3 icon-box mt-2 mt-lg-0">
+                                <i class="fa fa-calendar fa-2x"></i>
+                                <h4>120+ </h4>
+                                <p style="color: #848484">Universitas</p>
+                            </div>
+                            <div class="col-md-3 icon-box mt-2 mt-lg-0">
+                                <i class="fa fa-users fa-2x"></i>
+                                <h4>200+ </h4>
+                                <p style="color: #848484">Participation</p>
+                            </div>
+                            <div class="col-md-3 icon-box mt-2 mt-lg-0">
+                                <br>
+                                <a href="#about" class="text-center btn btn-lg"
+                                    style="background: #816B3E; color: white;">Mulai Jelajah</a>
+                            </div>
+                        </div>
 
-    <!--section logo-->
-    <section id="logo">
-    <div class="logo_internal justify-content-center text-center">
-      <img class="img-fluid" src="{{asset('frontend')}}/asset/Eksplore (18) 1.png" alt="image" >
-      <img class="img-fluid" src="{{asset('frontend')}}/asset/1200px-Logo_Universitas_Brawijaya 1.png" alt="image" >
-      <img class="img-fluid" src="{{asset('frontend')}}/asset/MhgM0ImP_400x400 1.png" alt="image" >
-      <img class="img-fluid" src="{{asset('frontend')}}/asset/android-chrome-512x512 1.png" alt="image" >
-      <img class="img-fluid" src="{{asset('frontend')}}/asset/Eksplore (17) 1.png" alt="image" >
-    </div>
-    </section>
-    <!--end section logo-->
+                    </div>
+                </div>
 
-    <!--section partner-->
-    <section id="partner">
-    <div class="partner">
-      <h2 style="font-size: 28px">PARTNER KAMI</h2>
-      <div class="sponsor img-fluid">
-        <img src="{{asset('frontend')}}/asset/VectorX.png" alt="" class="{{asset('frontend')}}/asset-img">
-        <img src="{{asset('frontend')}}/asset/Vector (1).png" alt="" class="{{asset('frontend')}}/asset-img">
-        <img src="{{asset('frontend')}}/asset/Vector (2).png" alt="" class="{{asset('frontend')}}/asset-img">
-        <img src="{{asset('frontend')}}/asset/Vector (3).png" alt="" class="{{asset('frontend')}}/asset-img">
-        <img src="{{asset('frontend')}}/asset/Vector.png" alt="" class="{{asset('frontend')}}/asset-img">
-      </div>
-    </div>
-  </section>
-    <!--End section partner-->
-
-    <!--section pengenalan-->
-    <link href="bootstrap/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <div class="">
-      <div class="text-center mb-5">
-        <br><br><br>
-        <h2 class="text-center fs-1 mt-4 fw-semibold" id="pengenalan">PENGENALAN</h2>
-        <h2 class="text-center fs-1 h2sect3 text-mukernas fw-semibold">MUKERNAS FORNAS SOSMA</h2>
-      </div>
-    <div class="row pt-5">
-        <div class="col-md-6 col-12 position-relative">
-            <img src="{{asset('frontend')}}/asset/Vectorsect3.png" alt="" class="fector">
-            <img src="{{asset('frontend')}}/asset/logo-fornas.png" alt="" class="logos position-absolute">
-        </div>
-        <div class="col-md-6 col-12">
-          <p class="text-pengenalan mt-4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
-              eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-              ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat
-              massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
-              rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer
-              tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-              ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis,
-              feugiat a, tellus. Phasellus viverra nulla ut</p>
-        </div>
-    </div>
-    </div>
-    <!--end section pengenalan-->
-
-    <!--section filosofi-->
-    <div class="filosofi">
-      <h2 style="font-size:36px"><span class="fw-semibold">FILOSOFI LOGO</span></h2>
-        <div class="h2sect4"><h2 style="font-size:36px"><span class="fw-semibold">MUKERNAS FORNAS SOSMA</span></h2>
-        </div>
-        <img src="{{asset('frontend')}}/asset/Filosofi Mukernas 1.png" alt="" class="img-fluid">
-    </div>
-    <!--end section filosofi-->
-
-    <!--Section berita-->
-    <div class="berita">
-      <h2 style="font-size:36px"><span class="fw-semibold" id="berita">Berita FORNAS SOSMA</span></h2>
-      <P class="desc_berita">adalah berita terkait kegiatan<br>pelaksanaan Mukernas Fornas Sosma 2023 :</P>
-    </div>
-    <div class="container">
-      <div class="row bernas shadow-sm p-5 mb-5 bg-white rounded-5 border-radius-2">
-        <!-- <div class="col-md-3">
-          <div class="card" id="berita-list">
-            <img src="{{asset('frontend')}}/asset/Rectangle 322.png" class="" alt="...">
-            <div class="card-body">
-              <h5 class="card-title fw-semibold">INFORMASI PEMBAGIAN LO (Liaison Officer)</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
+                <!-- Slide 2 -->
+                <div class="carousel-item"
+                    style="background-image: url({{ asset('Medicio') }}/assets/img/slide-2.png)">
+                    <div style="margin-bottom: 200px; margin-right: 1110px;">
+                        <a href="{{ url('inklusi') }}" class="text-center btn btn-lg"
+                            style="background: #816B3E; color: white;">Mulai Jelajah</a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div> -->
 
-      </div>
-    </div>
-    <section id="faq">
-    <!--end section berita-->
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true">
+                    < </span>
+            </a>
 
-    <!--section FAQ page-->
-
-    <div class="p-3 mb-2 bg-white text-dark container bgfaq">
-    <div class="container text-center p-5 faq">
-      <div class="row">
-        <div class="col align-self-center">
-          <p style="text-align:left; margin-left: 45px;">
-            <span style="font-size: 16px; font-weight: 600; color: #BC9743;
-            ;">FAQ</span><br><span style="font-size: 36px; font-weight:600;">Frequently Asked Question</span>
-          </p>
-        </div>
-        <div class="col align-self-center">
-          <div class="row">
-          <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-        </div>
-        <div class="row">
-          <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span><br>
-        </div>
-        <div class="row">
-          <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-        </div>
-        <div class="row">
-          <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span>
-        </div>
-        <div class="row">
-          <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-        </div>
-        <div class="row">
-          <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span>
-        </div>
-        </div>
-        <div class="col align-self-end">
-          <div class="row">
-            <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-          </div>
-          <div class="row">
-            <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span>
-          </div>
-          <div class="row">
-            <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-          </div>
-          <div class="row">
-            <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span>
-          </div>
-          <div class="row">
-            <span style="font-weight:600; text-align:left">bagaimana melihat LO?</span>
-          </div>
-          <div class="row">
-            <span style="text-align:left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime assumenda fugiat ab asperiores facere velit sapiente.</span>
-          </div>
-        </div>
-      </div>
-      </section>
-      <!-- <div class="bg1faq">
-        <img src="{{asset('frontend')}}/asset/bg1FAQ.png" alt="">
-      </div> -->
-      <!--<div class="bg2faq">
-        <img src="{{asset('frontend')}}/asset/bg2FAQ.png" alt="">
-      </div>-->
-    </div>
-    </div>
-
-    <!--end section FAQ page-->
-
-    <!--Footer section-->
-    <style>
-
-
-    </style>
-    <div class="container footer">
-        <div class="footer-background">
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true">></span>
+            </a>
 
         </div>
-    </div>
-    <div class="container footer">
-      <div class="footer-backgorund">
-        <div class="footer-main">
-          <img class="img-fornas" src="{{asset('frontend')}}/asset/logo-fornas.png">
-          <div class="colom1 col-2">
-            <div class="img-fornassosma">
-              <img src="{{asset('frontend')}}/asset/Eksplore (13) 1.png">
-              <img src="{{asset('frontend')}}/asset/Fornas SOSMA.png">
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= Featured Services Section ======= -->
+        <section id="featured-services" class="featured-services">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-1 d-flex align-items-stretch mb-5 mb-lg-0">
+                    </div>
+                    <div class="col-md-6 col-lg-2 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <img src="{{ asset('Medicio') }}/assets/img/side-1.png" height="200" alt="">
+                    </div>
+
+                    <div class="col-md-6 col-lg-2 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <img src="{{ asset('Medicio') }}/assets/img/side-2.png" height="200" alt="">
+                    </div>
+
+                    <div class="col-md-6 col-lg-2 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <img src="{{ asset('Medicio') }}/assets/img/side-3.png" height="200" alt="">
+                    </div>
+                    <div class="col-md-6 col-lg-2 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <img src="{{ asset('Medicio') }}/assets/img/side-4.png" height="200" alt="">
+                    </div>
+
+                    <div class="col-md-6 col-lg-2 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <img src="{{ asset('Medicio') }}/assets/img/side-5.png" height="200" alt="">
+                    </div>
+                    <div class="col-md-6 col-lg-1 d-flex align-items-stretch mb-5 mb-lg-0">
+                    </div>
+
+                </div>
+
             </div>
-            <div class="address">
-              <img class="img-location" src="{{asset('frontend')}}/asset/location.png">
-              <a style="text-decoration:none; color: white;" href="https://goo.gl/maps/kjnFfduEbdYso1Mb8" target="_blank">JL. Veteran Malang, Ketawanggede, kec. Lowokwaru, Kota Malang, Jawa Timur 65145</a>
-            </div>
-            <div class="copyright">
-              &copy; 2023, Divisi Database Mukernas 2023
-            </div>
-          </div>
-          <div class="colom2">
-            <div class="socialmedia">
-              Social Media
-            </div>
-            <div class="list1">
-              <img class="img-tiktok" src="{{asset('frontend')}}/asset/tik-tok.png">
-              <a style="text-decoration:none; color: white;" href="https://www.tiktok.com/@mukernasfornas" target="_blank">Tiktok</a>
-            </div>
-            <div class="list2">
-              <img class="img-ig" src="{{asset('frontend')}}/asset/instagram.png">
-              <a style="text-decoration:none; color: white;" href="https://instagram.com/mukernas_sosmas2023" target='_blank'>Instagram</a>
-            </div>
-          </div>
-          <div>
-            <img class="img-eksplore" src="{{asset('frontend')}}/asset/Eksplore (13) 2.png" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--end footer section -->
+        </section><!-- End Featured Services Section -->
+        <!-- ======= About Us Section ======= -->
+        <section id="about" class="about"
+            style="background-image: url({{ asset('frontend') }}/asset/avector.png); background-repeat: no-repeat;">
+            <div class="container" data-aos="fade-up">
 
-    <script src="{{asset('frontend')}}/js/bootstrap.js"></script>
-    <script src="{{asset('frontend')}}/js/popper.min.js"></script>
-  </body>
+                <div class="section-title">
+                    <p style="font-size: 40px; font-weight: bold;">PENGENALAN</p>
+                    <p class="text-gradient">MUKERNAS FORNAS SOSMA</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <img src="{{ asset('frontend') }}/asset/logo-fornas.png" class="img-fluid" alt="">
+                    </div>
+                    <div style="margin-top: 160px;" class=" col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
+                        Mukernas Fornassosmas BEM se-Indonesia
+                        merupakan salah satu musyawarah tertinggi dalam
+                        organisasi Forum Nasional Sosmas BEM se-Indonesia,
+                        di mana dalam forum ini membahas mengenai grand desain,
+                        kepengurusan, dan tuan rumah Mukernas Fornassosmas periode kedepan.
+                        Serta dalam penyelenggaraanya dibungkus dengan beberapa agenda acara seperti Malam keakraban,
+                        Opening ceremony, Closing Ceremony dan Fieldtrip
+                    </div>
+                </div>
+
+            </div>
+            <br><br><br><br><br><br><br><br>
+        </section><!-- End About Us Section -->
+
+        <!-- ======= Counts Section ======= -->
+        <section id="#" class="about">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <p style="font-size: 40px; font-weight: bold;">FILOSOFI LOGO</p>
+                    <p class="text-gradient">MUKERNAS FORNAS SOSMA</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <img src="{{ asset('frontend') }}/asset/filosofi.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="mt-5 col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
+                        <h2 class="font-bold">Filosofi Logo</h2>
+                        <p class="mt-4">
+                            Kami membuat Logo Mukernas Fornasosmas 2023 ini <br>
+                            supaya dapat menggambarkan peranan aktif forum<br>
+                            nasional sosial masyarakat dalam menjalankan<br>
+                            musyawarah kerja nasional yang akan dilaksanakan<br>
+                            di Universitas Brawijaya
+                        </p>
+                        <p>
+                            Logo ini dibuat sesuai dengan tema<br>
+                            yaitu "Indonesia yang Inklusi dan Ramah Disablilitas" yang<br>
+                            diilustrasikan dengan merangkul sesama
+                        </p>
+                        <p>
+                            Logo ini juga menjadi ilustrasi<br>
+                            pengharapan atas suksesnya acara ini dengan bersama-<br>
+                            sama melakukan musyawarah kerja nasional yang akan<br>
+                            memberikan dampak positif bagi kehidupan kita bersama.
+                        </p>
+                        <h2 class="font-bold">Filosofi Warna</h2>
+                        <img src="{{ asset('Medicio') }}/assets/img/warna.png">
+
+
+                    </div>
+                </div>
+
+            </div>
+            <br><br><br><br><br>
+        </section>
+        <section id="berita" class="about">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <p style="font-size: 40px; font-weight: bold;">BERITA FORNAS SOSMA</p>
+                    <p class="">Berikut adalah berita terkait kegiatan <br> pelaksanaan Mukernas Fornas Sosma
+                        2023: </p>
+                </div>
+
+                <div class="row bernas">
+
+                </div>
+        </section>
+
+        <section id="faq" class="testimonials"
+            style="margin-bottom: 100px; background-position: right; background-image: url({{ asset('Medicio') }}/assets/img/bg-kanan.png);
+             background-repeat: no-repeat;
+             ">
+            <div class="container" data-aos="fade-up">
+                <div class="card" style="background: #fafafa; margin-top: 80px;">
+                    <div class="row container mb-3 mt-3">
+                        <div class="col-md-3" style="margin-top: 100px;">
+                            <p class="mb-0" style="color: #BC9743; margin-left:80px;">FAQ</p>
+                            <p class="mt-1" style="font-weight: bold; font-size: 20px; margin-left: 80px;">
+                                Frequently <br> Asked Question</p>
+
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="mt-4">Bagaimana cara membuat akun?</h5>
+                                    <p>Teman teman bisa klik My Account pada pojok kanan atas atau mengunjungi :
+                                        <a href="https://www.mukernasfornassosma.site/register"> Link ini </a>
+                                    </p>
+                                    <h5 class="mt-4">Bagaimana cara melihat penjemput dan LO peserta?</h5>
+                                    <p>Dengan cara registrasi terlebih dahulu kemudian login dengan akun yang telah
+                                        didaftarkan maka akan tampil contact person tertera
+                                    </p>
+                                    <h5 class="mt-4">Bagaimana jika terdapat bug/crash pada website?</h5>
+                                    <p class=" mb-4">Teman teman dapat menghubungi contact person tertera pada footer
+                                        website kami atau dm instagram kami pada footer</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="mt-4">Bagaimana cara melihat informasi kegiatan?</h5>
+                                    <p>Informasi kegiatan akan ditampilkan pada laman berita pada
+                                        www.mukernasfornassosma.site muali dari pra acara hingga pasca acara</p>
+                                    <h5 class="mt-4">Bagaimana jika registrasi tidak ada nama instansi/universitas
+                                        belum tersedia?</h5>
+                                    <p class=" mb-4">Teman teman dapat menghubungi contact person yang berada di
+                                        paling bawah website (footer) untuk menghubungi langsung admin mukernas untuk
+                                        menemukan solusinya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+
+    {{-- style="background-image: url({{ asset('frontend') }}/asset/logo-fornas.png);
+    background-repeat: no-repeat;
+    background-size: 400px; " --}}
+
+
+    <footer id="footer">
+        <div class="footer-top gambarfooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4">
+                        <img src="{{ asset('frontend') }}/asset/logo-fornas.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-3 mt-2 col-md-4">
+                        <div class="footer-info">
+                            <img src="{{ asset('frontend') }}/asset/logo-putih.png" alt="">
+                            <span style="font-size: 19px; font-weight: bold;">Fornas SOSMA</span>
+                            <p>
+                            <div class="footer-links">
+                                <ul>
+                                    <li><i class="fa fa-map-marker-alt fa-2x mb-4"></i> &nbsp&nbsp&nbsp
+                                        <a target="_blank" style="line-height: 20px; margin-left= 30px;"
+                                            class="text-white"
+                                            href="https://www.google.com/maps/place/Universitas+Brawijaya/@-7.9566765,112.6122154,16.61z/data=!4m15!1m8!3m7!1s0x2e78827bee11a2ab:0x12c931733bd6f517!2sJl.+Veteran+Malang,+Ketawanggede,+Kec.+Lowokwaru,+Kota+Malang,+Jawa+Timur!3b1!8m2!3d-7.9561824!4d112.6146929!16s%2Fg%2F11ddzy6lwb!3m5!1s0x2e78827f2d620975:0xf19b7459bbee5ed5!8m2!3d-7.9526403!4d112.6143754!16s%2Fm%2F04ct9h8">Jl.
+                                            Veteran
+                                            Malang, Ketawanggede, <br> Kec. Lowokwaru, Kota Malang, <br> Jawa Timur
+                                            65145</a>
+                                    </li>
+                                    <br><br>
+                                    <li> &copy; 2023 <span>, Divisi Database Mukernas 2023</span>.
+                                    </li>
+                                </ul>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 mt-5 footer-links">
+                        <h4>Social Media </h4>
+                        <ul>
+                            <li><i class="fa-brands fa-tiktok"></i> <a target="_blank" class="text-white"
+                                    href="https://www.tiktok.com/@mukernasfornas"> &nbsp
+                                    Tiktok</a></li>
+                            <li><i class="fa-brands fa-instagram"></i> <a target="_blank" class="text-white"
+                                    href="https://www.instagram.com/mukernas_sosmas2023/"> &nbsp
+                                    Instagram</a></li>
+                            <li><i class="fa-brands fa-whatsapp"></i> <a target="_blank" class="text-white"
+                                    href="https://wa.link/e0hpqk"> &nbsp
+                                    Contact Person</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-4  footer-links">
+                        <img src="{{ asset('medicio') }}/assets/img/footer-kanan.png"
+                            class="img-fluid"alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('Medicio') }}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="{{ asset('Medicio') }}/assets/vendor/aos/aos.js"></script>
+    <script src="{{ asset('Medicio') }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('Medicio') }}/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="{{ asset('Medicio') }}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="{{ asset('Medicio') }}/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('Medicio') }}/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+</body>
 
 </html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-
 <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ url('api/beritas') }}",
+            type: 'GET',
+            success: function(response) {
+                var datas = response.data;
+                console.log(response.data)
+                var row = $('.bernas');
 
-$(document).ready(function() {
-  $.ajax({
-    url: "{{url('api/beritas')}}",
-    type: 'GET',
-    success: function(response) {
-      var datas = response.data;
-    console.log(response.data)
-      var row = $('.bernas');
+                $.each(datas, function(index, berita) {
+                    var col = $('<div class="col-md-3"></div>');
+                    var card = $('<div class="card my-3"></div>');
+                    var img = $('<img height="150px;" src="storage/' + berita.file +
+                        '" class="card-img">');
+                    img.css('max-width', '100%', 'max-height', '250px',
+                        'object-fit', 'cover');
+                    var cardBody = $('<div class="card-body"></div>');
+                    var title = $('<h5 class="carsd-title fw-semibold">' + (berita.judul
+                        .length > 10 ? berita.judul.substring(0, 10) + '...' :
+                        berita.judul) + '</h5>');
+                    var desc = $('<p class="card-text">' + (berita.deskripsi.length > 20 ?
+                        berita.deskripsi.substring(0, 20) + '...' : berita.deskripsi
+                    ) + '</p>');
+                    var link = $('<a href="detail-berita/' + berita.id +
+                        '"style="float:right; background-color: #BC9743; color: #fff;" class="btn btn gradient">Selengkapnya</a>'
+                    );
 
-      $.each(datas, function(index, berita) {
-        var col = $('<div class="col-md-3"></div>');
-        var card = $('<div class="card my-3"></div>');
-        var img = $('<img src="storage/file/' + berita.file + '" class="card-img">'); img.css('max-width', '100%', 'max-height', '250px',
-  'object-fit', 'cover');
-        var cardBody = $('<div class="card-body"></div>');
-        var title = $('<h5 class="carsd-title fw-semibold">' + (berita.judul.length > 10 ? berita.judul.substring(0, 10) + '...' : berita.judul)  + '</h5>');
-        var desc = $('<p class="card-text">' + (berita.deskripsi.length > 20 ? berita.deskripsi.substring(0, 20) + '...' : berita.deskripsi) + '</p>');
-        var link = $('<a href="#" class="btn btn-primary">Selengkapnya</a>');
-
-        cardBody.append(title);
-        cardBody.append(desc);
-        cardBody.append(link);
-        card.append(img);
-        card.append(cardBody);
-        col.append(card);
-        row.append(col);
-      });
-    }
-  });
-});
-
+                    cardBody.append(title);
+                    cardBody.append(desc);
+                    cardBody.append(link);
+                    card.append(img);
+                    card.append(cardBody);
+                    col.append(card);
+                    row.append(col);
+                });
+            }
+        });
+    });
 </script>

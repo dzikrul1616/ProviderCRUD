@@ -28,6 +28,7 @@ class User extends Authenticatable
         'photo',
         'sppd',
         'ktm',
+        'pernyataan',
         'transfer',
         'role',
     ];

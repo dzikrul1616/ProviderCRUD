@@ -47,20 +47,74 @@ class AuthController extends Controller
 
     public function storeRegister(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|min:6|confirmed',
-        // ]);
+        $validatedData = $request->validate([
+            'nama_lengkap' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5',
+            'no_hp' => 'required|numeric',
+            'transportasi' => 'required',
+            'foto_almamater' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'sppd' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'ktm' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'nota_kesepakatan' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'konfirmasi_kedatangan' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'pernyataan' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'surat_izin' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+            'bukti_pelunasan' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+        ],[
+            'nama_lengkap.required' => 'Form nama lengkap wajib diisi !',
+
+            'email.unique' => 'Email telah terdaftar, gunakan email lainnya',
+            'email.required' => 'Form email wajib diisi !',
+            'email.email' => 'Format email salah',
+
+            'password.min' => 'Password minimal 5 karakter',
+            'password.required' => 'Form Password wajib diisi !',
+
+            'no_hp.required' => 'Form nomor hp wajib diisi !',
+            'no_hp.numeric' => 'Inputan wajib berupa angka',
+
+            'transportasi.required' => 'Form transportasi wajib diisi !',
+
+            'foto_almamater.required' => 'Form foto almamater wajib diisi !',
+            'foto_almamater.mimes' => 'Format file tidak di dukung !',
+            'foto_almamater.max' => 'File foto almamater tidak boleh lebih dari 2MB',
+
+            'sppd.mimes' => 'Format file tidak di dukung !',
+            'sppd.max' => 'File sppd tidak boleh lebih dari 2MB',
+            'sppd.required' => 'Form sppd wajib diisi !',
+
+            'ktm.mimes' => 'Format file tidak di dukung !',
+            'ktm.max' => 'File ktm tidak boleh lebih dari 2MB',
+            'ktm.required' => 'Form ktm wajib diisi !',
+
+            'nota_kesepakatan.mimes' => 'Format file tidak di dukung !',
+            'nota_kesepakatan.max' => 'File nota kesepakatan tidak boleh lebih dari 2MB',
+            'nota_kesepakatan.required' => 'Form nota kesepakatan wajib diisi !',
+
+            'konfirmasi_kedatangan.mimes' => 'Format file tidak di dukung !',
+            'konfirmasi_kedatangan.max' => 'File konfirmasi kedatangan tidak boleh lebih dari 2MB',
+            'konfirmasi_kedatangan.required' => 'Form konfirmasi kedatangan wajib diisi !',
+
+            'pernyataan.mimes' => 'Format file tidak di dukung !',
+            'pernyataan.max' => 'File pernyataan tidak boleh lebih dari 2MB',
+            'pernyataan.required' => 'Form pernyataan wajib diisi !',
+
+            'surat_izin.mimes' => 'Format file tidak di dukung !',
+            'surat_izin.max' => 'File surat izin tidak boleh lebih dari 2MB',
+            'surat_izin.required' => 'Form surat izin wajib diisi !',
+
+            'bukti_pelunasan.mimes' => 'Format file tidak di dukung !',
+            'bukti_pelunasan.max' => 'File bukti pelunasan tidak boleh lebih dari 2MB',
+            'bukti_pelunasan.required' => 'Form bukti pelunasan wajib diisi !',
+
+        ]);
 
         $user = new User();
         $user->name = $request->nama_lengkap;
         $user->alergi = $request->alergi;
-        if ($request->hasFile('foto_almamater')) {
-            $request->validate([
-                'foto_almamater' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
 
+        if ($request->hasFile('foto_almamater')) {
             $file = $request->file('foto_almamater');
             $path = $file->store('public/');
             $user->photo = basename($path);
@@ -69,6 +123,7 @@ class AuthController extends Controller
         $user->institution = $request->asal_instansi;
         $user->phone = $request->no_hp;
         $user->transport = $request->transportasi;
+
         if (in_array($request->transportasi, ['Bis', 'Pesawat', 'Kereta Api'])) {
             $request->validate([
                 'foto_tiket' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
@@ -89,9 +144,6 @@ class AuthController extends Controller
             $user->tiket = '0';
         }
         if ($request->hasFile('sppd')) {
-            $request->validate([
-                'sppd' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
 
             $file = $request->file('sppd');
             $path = $file->store('public/');
@@ -100,9 +152,6 @@ class AuthController extends Controller
 
         }
         if ($request->hasFile('ktm')) {
-            $request->validate([
-                'ktm' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
 
             $file = $request->file('ktm');
             $path = $file->store('public/');
@@ -111,10 +160,6 @@ class AuthController extends Controller
 
         }
         if ($request->hasFile('bukti_pelunasan')) {
-            $request->validate([
-                'bukti_pelunasan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
-
             $file = $request->file('bukti_pelunasan');
             $path = $file->store('public/');
             $user->transfer = basename($path);
@@ -122,10 +167,6 @@ class AuthController extends Controller
 
         }
         if ($request->hasFile('nota_kesepakatan')) {
-            $request->validate([
-                'nota_kesepakatan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
-
             $file = $request->file('nota_kesepakatan');
             $path = $file->store('public/');
             $user->nota = basename($path);
@@ -133,27 +174,25 @@ class AuthController extends Controller
 
         }
         if ($request->hasFile('konfirmasi_kedatangan')) {
-            $request->validate([
-                'konfirmasi_kedatangan' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
-
             $file = $request->file('konfirmasi_kedatangan');
             $path = $file->store('public/');
             $user->konfirmasi = basename($path);
             $url = url('storage/' . $path);
 
         }
+        if ($request->hasFile('pernyataan')) {
+            $file = $request->file('pernyataan');
+            $path = $file->store('public/');
+            $user->pernyataan = basename($path);
+            $url = url('storage/' . $path);
+
+        }
 
         if ($request->hasFile('surat_izin')) {
-            $request->validate([
-                'surat_izin' => 'mimes:jpeg,jpg,png,pdf|max:2048',
-            ]);
-
             $file = $request->file('surat_izin');
             $path = $file->store('public/');
             $user->surat_izin =basename($path);
             $url = url('storage/' . $path);
-
         }
         $user->email_verified_at = '0';
         $user->role = 'user';
@@ -169,7 +208,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect('/login');
+        return redirect('https://welcome.mukernasfornassosma.site/');
     }
 
     // public function auth(Request $request)
