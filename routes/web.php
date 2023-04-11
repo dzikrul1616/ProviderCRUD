@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserContoller;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeritaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,12 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/inklusi', function () {
+    return view('inner');
+});
+Route::controller(BeritaController::class)->group(function () {
+    Route::get('detail-berita/{id}', 'details');
 });
 
 Route::get('/register', function () {

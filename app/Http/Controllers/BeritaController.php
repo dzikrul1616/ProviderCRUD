@@ -40,29 +40,33 @@ class BeritaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+     {
         $validate = $request->validate([
             'judul' => 'required',
             'deskripsi' => 'required',
         ]);
-    
-        $fileName = '';
-        $extension = '';
-        if ($request->image) {
-            $fileName = $this->generateRandomString();
-            $extension = $request->image->extension();
-            if (!file_exists(storage_path('app/public/file'))) {
-                mkdir(storage_path('app/public/file'), 0755, true);
-            }
-            Storage::putFileAs('public/file', $request->image, $fileName . '.' . $extension);
+
+
+        $berita = new Berita();
+        $berita->judul = $request->judul;
+        $berita->deskripsi = $request->deskripsi;
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'mimes:jpeg,jpg,png,pdf|max:2048',
+            ]);
+
+            $file = $request->file('file');
+            $path = $file->store('public/');
+            $berita->file = basename($path);
+            $url = url('storage/' . $path);
         }
-        $request['file'] = $fileName . '.' . $extension;
-        $berita = Berita::create($request->all());
-    
+        $berita->save();
+
         return response()->json([
             'data' => $berita,
         ], 200);
     }
+
 
     /**
      * Display the specified resource.

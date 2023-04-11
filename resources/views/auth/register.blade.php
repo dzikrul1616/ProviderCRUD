@@ -53,6 +53,9 @@
                                                             <input class="form-control" type="email"
                                                                 placeholder="Masukkan Email" name="email" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName"></p>
+                                                            @error('email')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
 
                                                         <div class="col-md-6">
@@ -61,6 +64,9 @@
                                                             <input class="form-control" type="password"
                                                                 placeholder="masukkan password" name="password" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName"></p>
+                                                            @error('password')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <p class="text-xs text-muted mt-2" v-if="fileName"></p>
                                                         <hr class="horizontal dark" />
@@ -72,6 +78,9 @@
                                                                 placeholder="Masukkan Nama Lengkap"
                                                                 name="nama_lengkap" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName"></p>
+                                                            @error('nama_lengkap')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-text-input"
@@ -79,6 +88,9 @@
                                                             <input class="form-control" type="text"
                                                                 placeholder="Masukkan No Telepon" name="no_hp" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName"></p>
+                                                            @error('no_hp')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-text-input"
@@ -93,15 +105,9 @@
                                                                 class="form-control-label">Asal Instansi</label>
                                                             <select name="asal_instansi" class="form-control">
                                                             </select>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="example-file-input"
-                                                                class="form-control-label">Foto dengan
-                                                                Almamater</label>
-                                                            <input class="form-control" type="file"
-                                                                name="foto_almamater" id="example-file-input" />
-                                                            <p class="text-xs text-muted mt-2" v-if="fileName">
-                                                            </p>
+                                                            @error('asal_instasi')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-file-input"
@@ -111,6 +117,9 @@
                                                                 id="example-file-input" name="sppd" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
+                                                            @error('sppd')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-file-input"
@@ -119,6 +128,9 @@
                                                                 id="example-file-input" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
+                                                            @error('ktm')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-file-input"
@@ -128,6 +140,9 @@
                                                                 name="foto_almamater" id="example-file-input" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
+                                                            @error('foto_almamater')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-file-input"
@@ -136,20 +151,43 @@
                                                                 id="example-file-input" name="bukti_pelunasan" />
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
+                                                            @error('bukti_pelunasan')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="example-file-input"
+                                                                class="form-control-label">Surat Pernyataan</label>
+                                                            <input class="form-control" type="file"
+                                                                id="example-file-input" name="pernyataan" />
+                                                            <span>
+                                                                <a class="text-warning"
+                                                                    href="{{ asset('Surat Pernyataan.pdf') }}"
+                                                                    download>Download
+                                                                    template berkas</a>
+                                                            </span>
+                                                            <br>
+                                                            @error('pernyataan')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label for="example-file-input"
                                                                 class="form-control-label">NOTA KESEPAKATAN</label>
                                                             <input class="form-control" type="file"
-                                                                id="example-file-input" name="nota_kesepakatan"
-                                                                required />
+                                                                id="example-file-input" name="nota_kesepakatan" />
+
                                                             <span>
-                                                                <a class="text-danger"
-                                                                    href="{{ asset('Berkas Mukernas.pdf') }}"
+                                                                <a class="text-warning"
+                                                                    href="{{ asset('Nota Kesepakatan.pdf') }}"
                                                                     download>Download
                                                                     template berkas</a>
                                                             </span>
+                                                            <br>
+                                                            @error('nota_kesepakatan')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
 
                                                         <div class="col-md-6">
@@ -160,26 +198,34 @@
                                                                 id="example-file-input"
                                                                 name="konfirmasi_kedatangan" />
                                                             <span>
-                                                                <a class="text-danger"
-                                                                    href="{{ asset('Berkas Mukernas.pdf') }}"
+                                                                <a class="text-warning"
+                                                                    href="{{ asset('konfirm kedatangan.pdf') }}"
                                                                     download>Download
                                                                     template berkas</a>
                                                             </span>
+                                                            <br>
+                                                            @error('konfirmasi_kedatangan')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="example-file-input" class="">SURAT
                                                                 IZIN ORANG
-                                                                TUA/WAL</label>
+                                                                TUA/WALI</label>
                                                             <input class="form-control" type="file"
                                                                 id="example-file-input" name="surat_izin" />
                                                             <span>
-                                                                <a class="text-danger"
-                                                                    href="{{ asset('Berkas Mukernas.pdf') }}"
+                                                                <a class="text-warning"
+                                                                    href="{{ asset('Surat Izin Orangtua.pdf') }}"
                                                                     download>Download
                                                                     template berkas</a>
                                                             </span>
+                                                            <br>
+                                                            @error('surat_izin')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                             <p class="text-xs text-muted mt-2" v-if="fileName">
                                                             </p>
                                                         </div>
@@ -261,7 +307,7 @@
 
     <script>
         $(document).ready(function() {
-            $("select[name='asal_instansi']").append("<option value=''>-- Pilih Asal Instansi --</option>");
+            $("select[name='asal_instansi']").append("<option>-- Pilih Asal Instansi --</option>");
             $.ajax({
                 url: "api/get-instansi",
                 type: "GET",
