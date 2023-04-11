@@ -1,26 +1,18 @@
 class FormData {
-  String id;
-  String alamat;
-  String no_hp;
-  String pendidikan_terakhir;
-  String nama;
-  List<Jenis> jenisList;
+ final String id;
+ final String alamat;
+ final String no_hp;
+ final String pendidikan_terakhir;
+ final String nama;
+ final List<dynamic> nama_pekerjaan;
+ final List<dynamic> tahun;
 
   FormData(
-      {required this.id,
-      required this.nama,
-      required this.alamat,
-      required this.no_hp,
-      required this.pendidikan_terakhir,
-      required this.jenisList});
-  List<String> get jenisListString =>
-      jenisList.map((jenis) => jenis.nama).toList();
-}
-
-class Jenis {
-  String id;
-  String nama;
-  String tanggal;
-
-  Jenis({required this.id, required this.nama, required this.tanggal});
+    this.id,
+    this.nama,
+    this.alamat,
+    this.no_hp,
+    this.pendidikan_terakhir,
+    this.nama_pekerjaan,
+    this.tahun);
 }

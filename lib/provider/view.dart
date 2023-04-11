@@ -9,7 +9,7 @@ class ViewData extends ChangeNotifier {
     await _getDataFromFirebase();
   }
 
-  ViewData() {
+  addDataProvider() {
     _getDataFromFirebase();
   }
 
@@ -20,31 +20,15 @@ class ViewData extends ChangeNotifier {
     QuerySnapshot FormDataSnapshot = await FormDataCollection.get();
 
     for (QueryDocumentSnapshot FormDataDoc in FormDataSnapshot.docs) {
-      CollectionReference jenisCollection =
-          FormDataDoc.reference.collection('pekerjaan');
-      QuerySnapshot jenisSnapshot = await jenisCollection.get();
-      List<Jenis> jenisList = [];
-
-      for (QueryDocumentSnapshot jenisDoc in jenisSnapshot.docs) {
-        jenisList.add(Jenis(
-          id: jenisDoc.id,
-          nama: jenisDoc['nama_pekerjaan'],
-          tanggal: jenisDoc['tahun'],
-        ));
-      }
-
       FormDataList.add(FormData(
-        id: FormDataDoc.id,
-        alamat: FormDataDoc['alamat'],
-        no_hp: FormDataDoc['no_hp'],
-        pendidikan_terakhir: FormDataDoc['pendidikan_terakhir'],
-        nama: FormDataDoc['nama'],
-        jenisList: jenisList,
+        FormDataDoc.id,
+        FormDataDoc['alamat'],
+        FormDataDoc['no_hp'],
+        FormDataDoc['pendidikan_terakhir'],
+        FormDataDoc['nama'],
+        FormDataDoc['nama_pekerjaan'],
+        FormDataDoc['tahun'],
       ));
     }
-  }
-
-  Future<void> delete(String id) async {
-    await FirebaseFirestore.instance.collection('orang').doc(id).delete();
   }
 }

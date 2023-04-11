@@ -8,6 +8,10 @@ class addDataProvider extends ChangeNotifier {
   TextEditingController nohpController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
   TextEditingController namapekerjaanController = TextEditingController();
+  TextEditingController tahunController = TextEditingController();
+  List<dynamic> listpekerjaan = [];
+  List<dynamic> listtahun = [];
+  List<String> listsemua = [];
   String? selectedPendidikan;
 
   void valueList(String? value) {
@@ -16,19 +20,15 @@ class addDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addPekerjaan() async {
-    CollectionReference pasarCollection =
-        FirebaseFirestore.instance.collection('orang');
-    DocumentReference pasarDocRef =
-        (await pasarCollection.get(
-          
-        )) as DocumentReference<Object?>;
-    CollectionReference jenisCollection = pasarDocRef.collection('pekerjaan');
-
+  void addPekerjaan() {
+    listpekerjaan.add(namapekerjaanController.text);
+    listtahun.add(tahunController.text);
+    listsemua
+        .add('${namapekerjaanController.text} (${tahunController.text} tahun)');
+    notifyListeners();
     namapekerjaanController.clear();
-    await jenisCollection.add({
-      'nama_pekerjaan': namapekerjaanController.text,
-    });
+    tahunController.clear();
+    notifyListeners();
   }
 
   void addDataToFirebase() async {
@@ -39,23 +39,17 @@ class addDataProvider extends ChangeNotifier {
       'nama': namaController.text ?? 'tidak terinput',
       'no_hp': nohpController.text ?? 'tidak terinput',
       'alamat': alamatController.text ?? 'tidak terinput',
-      'pendidikan_terakhir': selectedPendidikan ?? 'tidak terinput',
-    });
-
-    CollectionReference jenisCollection = pasarDocRef.collection('pekerjaan');
-    await jenisCollection.add({
-      'nama_pekerjaan': namapekerjaanController.text,
-      'tahun': '2002',
+      'pendidikan_terakhir': selectedPendidikan,
+      'nama_pekerjaan': listpekerjaan,
+      'tahun': listtahun,
     });
   }
 
-  void dispose() {
-    namaController.dispose();
-    nohpController.dispose();
-    alamatController.dispose();
-    alamatController.dispose();
-    namapekerjaanController.dispose();
-    super.dispose();
+  delete(int index) {
+    listpekerjaan.removeAt(index);
+    listsemua.removeAt(index);
+    listtahun.removeAt(index);
+    notifyListeners();
   }
 
   final List<String> pendidikanList = [
@@ -70,4 +64,5 @@ class addDataProvider extends ChangeNotifier {
     's2',
     's3',
   ];
+  
 }
