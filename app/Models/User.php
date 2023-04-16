@@ -10,8 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    
     use HasApiTokens, HasFactory, Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -57,5 +58,10 @@ class User extends Authenticatable
         $this->sppd = $this->sppd ? url('images/' . $this->sppd) : null;
         $this->ktm = $this->ktm ? url('images/' . $this->ktm) : null;
         $this->transfer = $this->transfer ? url('images/' . $this->transfer) : null;
+    }
+    public function presensis()
+    {
+        
+        return $this->hasMany(Presensi::class);
     }
 }

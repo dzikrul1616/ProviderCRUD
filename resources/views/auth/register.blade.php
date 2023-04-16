@@ -23,8 +23,8 @@
 
 <body>
 
-
-    <main class="mt-5 mb-5 main-content" style="margin-left: 340px;">
+<center>
+    <main class="mt-5 mb-5 main-content">
         <section>
             <div class="page-header min-vh-100">
                 <div class="container">
@@ -270,7 +270,7 @@
             </div>
         </section>
     </main>
-
+</center>
 
 
 

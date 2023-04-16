@@ -252,6 +252,7 @@ class UserContoller extends Controller
     }
     public function register(Request $request, User $users)
     {
+        return $this->hasMany(Absensi::class);
         $users = User::find($request->user()->id);
         $request->validate([
             'name' => 'required',
@@ -321,7 +322,7 @@ class UserContoller extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'User logout'
-        ]);
+        ],200);
     }
     public function update_penjemputan(Request $request, $id)
     {

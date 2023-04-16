@@ -112,7 +112,12 @@ class AuthController extends Controller
 
         $user = new User();
         $user->name = $request->nama_lengkap;
-        $user->alergi = $request->alergi;
+        if (!empty($request->alergi)) {
+            $isi = $request->alergi;
+        } else {
+            $isi = 'tidak';
+        }
+        $user->alergi = $isi;
 
         if ($request->hasFile('foto_almamater')) {
             $file = $request->file('foto_almamater');

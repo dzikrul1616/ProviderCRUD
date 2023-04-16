@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PresensiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,10 +28,14 @@ Route::get('users/{id}', [AuthController::class, 'getUserById']);
 //deletediadmin
 Route::delete('delete/{id}', [AuthController::class, 'deleteadmin']);
 
-
+//penjemput
 Route::post('penjemputan/{id}', [UserContoller::class, 'update_penjemputan']);
 Route::post('verified/{id}', [UserContoller::class, 'update_verified']);
 
+//absensi
+Route::post('/presensi', [PresensiController::class, 'store']);
+Route::get('/presensi', [PresensiController::class, 'getall']);
+Route::get('/users/{id}/presensis', [PresensiController::class, 'getId']);
 
 // berita
 Route::post('beritas', [BeritaController::class, 'store']);
@@ -63,3 +68,4 @@ Route::prefix('admin')->group(function () {
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
