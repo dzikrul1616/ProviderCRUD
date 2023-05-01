@@ -7,11 +7,12 @@ import 'package:formstate/Screen/Barscreen/pekerjaan.dart';
 import 'package:formstate/Screen/Barscreen/pendidikan.dart';
 import 'package:formstate/Screen/home.dart';
 import 'package:formstate/model/form.dart';
-import 'package:formstate/provider/adddata.dart';
+import 'package:formstate/provider/addeditdata.dart';
 import 'package:provider/provider.dart';
 
 class FormDataView extends StatefulWidget {
-  const FormDataView({super.key});
+  final String? id;
+  FormDataView({required this.id});
 
   @override
   State<FormDataView> createState() => _FormDataViewState();
@@ -22,7 +23,7 @@ class _FormDataViewState extends State<FormDataView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (BuildContext context) => addDataProvider(),
+        create: (BuildContext context) => addDataProvider(widget.id),
         child: Consumer<addDataProvider>(builder: (context, value, child) {
           return DefaultTabController(
             length: 3,
@@ -61,7 +62,7 @@ class _FormDataViewState extends State<FormDataView> {
                       children: [
                         BiodataView(),
                         PendidikanView(),
-                        PekerjaanView(),
+                        PekerjaanView(id: widget.id! ?? ""),
                       ],
                     ),
                   ),
@@ -71,64 +72,4 @@ class _FormDataViewState extends State<FormDataView> {
           );
         }));
   }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void addPekerjaan(DocumentReference docRef) async {
-    namapekerjaanController.clear();
-    CollectionReference jenisCollection = docRef.collection('pekerjaan');
-
-    await jenisCollection.add({
-      'nama_pekerjaan': namapekerjaanController.text,
-    });
-  }
-
-  void addDataToFirebase() async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeView()));
-    CollectionReference pasarCollection =
-        FirebaseFirestore.instance.collection('orang');
-
-    DocumentReference pasarDocRef = await pasarCollection.add({
-      'nama': namaController.text,
-      'no_hp': nohpController.text,
-      'alamat': alamatController.text,
-      'pendidikan_terakhir': selectedPendidikan,
-    });
-
-    addPekerjaan(pasarDocRef); // Memanggil fungsi addPekerjaan
-  }
-
-  final _FormDataList = <FormData>[];
-  final namaController = TextEditingController();
-  final nohpController = TextEditingController();
-  final alamatController = TextEditingController();
-  final namapekerjaanController = TextEditingController();
-  String? selectedPendidikan;
-
-  @override
-  void dispose() {
-    namaController.dispose();
-    nohpController.dispose();
-    alamatController.dispose();
-    alamatController.dispose();
-    namapekerjaanController.dispose();
-    super.dispose();
-  }
-
-  final List<String> pendidikanList = [
-    'smp',
-    'sma',
-    'smk',
-    'd1',
-    'd2',
-    'd3',
-    'd4',
-    's1',
-    's2',
-    's3',
-  ];
 }

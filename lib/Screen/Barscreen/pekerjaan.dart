@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/provider/adddata.dart';
+import 'package:formstate/Screen/home.dart';
+import 'package:formstate/provider/addeditdata.dart';
 import 'package:provider/provider.dart';
 
 class PekerjaanView extends StatefulWidget {
+  final String id;
+  PekerjaanView({required this.id});
   @override
   State<PekerjaanView> createState() => _PekerjaanViewState();
 }
@@ -189,7 +192,13 @@ class _PekerjaanViewState extends State<PekerjaanView> {
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: ElevatedButton(
-                  onPressed: value.addDataToFirebase,
+                  onPressed: () {
+                    value.change == true
+                        ? value.addDataToFirebase()
+                        : value.updateDataToFirebase(widget.id!);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeView()));
+                  },
                   child: Center(
                       child: Text(
                     "Simpan",
@@ -255,7 +264,7 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                                   ],
                                 ),
                                 InkWell(
-                                  onTap: value.delete(index),
+                                  onTap: () => value.delete(index),
                                   child: Icon(
                                     Icons.close,
                                     color: Colors.red,

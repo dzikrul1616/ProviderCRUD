@@ -9,8 +9,9 @@ class ViewData extends ChangeNotifier {
     await _getDataFromFirebase();
   }
 
-  addDataProvider() {
+  ViewData() {
     _getDataFromFirebase();
+    notifyListeners();
   }
 
   Future<void> _getDataFromFirebase() async {
@@ -30,5 +31,37 @@ class ViewData extends ChangeNotifier {
         FormDataDoc['tahun'],
       ));
     }
+  }
+
+  void showAlertDialog(BuildContext context, String id) {
+    Widget cancelButton = TextButton(
+      child: Text("Tidak"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Ya"),
+      onPressed: () async {
+        await FirebaseFirestore.instance.collection('orang').doc(id).delete();
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Hapus content"),
+      content: Text("Apakah anda yakin ingin menghapus content ini?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
