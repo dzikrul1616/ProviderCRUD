@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/provider/addeditdata.dart';
+import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
 class PendidikanView extends StatefulWidget {
@@ -39,37 +39,27 @@ class _PendidikanViewState extends State<PendidikanView> {
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: FutureBuilder<List<String>>(
-                    future: value.pendidikanList(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        print(snapshot.error);
-                        return const Center(child: Text('Terjadi kesalahan'));
-                      } else {
-                        return DropdownButton<String>(
-                            value: value.selectedPendidikan,
-                            onChanged: value.valueList,
-                            focusColor: Colors.grey,
-                            icon: Icon(Icons.keyboard_arrow_down_rounded),
-                            iconSize: 20,
-                            style: TextStyle(
-                                color: Color(0xff828282),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                            underline: Container(),
-                            isExpanded: true,
-                            items: snapshot.data
-                                ?.map((pendidikan) => DropdownMenuItem<String>(
-                                      value: pendidikan,
-                                      child: Text(pendidikan),
-                                    ))
-                                .toList());
-                      }
-                    }),
-              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: DropdownButton<String>(
+                    value: value.selectedPendidikan,
+                    onChanged: value.valueList,
+                    focusColor: Colors.grey,
+                    icon: Icon(Icons.keyboard_arrow_down_rounded),
+                    iconSize: 20,
+                    style: TextStyle(
+                        color: Color(0xff828282),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
+                    underline: Container(),
+                    isExpanded: true,
+                    items: value.pendidikana.map((pendidikan) {
+                      return DropdownMenuItem<String>(
+                        value: pendidikan,
+                        child: Text(pendidikan),
+                      );
+                    }).toList(),
+                    
+                  )),
             ),
           ],
         ),

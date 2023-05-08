@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/provider/addeditdata.dart';
+import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
 class BiodataView extends StatefulWidget {
