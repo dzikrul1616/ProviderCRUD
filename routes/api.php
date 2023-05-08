@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\UserContoller;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -8,64 +8,17 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PresensiController;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-// Auth user
-Route::get('users', [AuthController::class, 'getUser']);
-Route::get('get-instansi', [AuthController::class, 'getInstansi']);
-Route::post('cek_login', [AuthController::class, 'auth']);
-Route::get('users/{id}', [AuthController::class, 'getUserById']);
+use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\pendidikanController;
 
-//deletediadmin
-Route::delete('delete/{id}', [AuthController::class, 'deleteadmin']);
 
-//penjemput
-Route::post('penjemputan/{id}', [UserContoller::class, 'update_penjemputan']);
-Route::post('verified/{id}', [UserContoller::class, 'update_verified']);
-
-//absensi
-Route::post('/presensi', [PresensiController::class, 'store']);
-Route::get('/presensi', [PresensiController::class, 'getall']);
-Route::get('/users/{id}/presensis', [PresensiController::class, 'getId']);
-
-// berita
-Route::post('beritas', [BeritaController::class, 'store']);
-Route::get('beritas', [BeritaController::class, 'index']);
-Route::delete('beritas/{id}', [BeritaController::class, 'destroy']);
-
-Route::prefix('auth')->group(function () {
-    Route::controller(UserContoller::class)->group(function () {
-        Route::post('verif', 'verif');
-        Route::post('register', 'register')->middleware('auth:sanctum');
-        Route::post('logout', 'logout')->middleware('auth:sanctum');
-    });
+Route::controller(UserController::class)->group(function () {
+    Route::get('users', 'index');
+    Route::get('users/{id}', 'getUserById');
+    Route::post('users', 'store');
+    Route::post('users/{id}', 'update');
+    Route::delete('users/{id}', 'deleteadmin');
 });
-Route::resource('user', UserContoller::class)->middleware(['auth:sanctum', 'role:2']);
-Route::resource('profile', ProfileController::class)->middleware('auth:sanctum');
-
-
-Route::prefix('admin')->group(function () {
-    Route::post('/register', [AdminAuthController::class, 'register']);
-     Route::post('/login', [AdminAuthController::class, 'login']);
-     Route::post('/logout', [AdminAuthController::class, 'logout']);
-    // Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:api');
-
-    // Route::middleware(['auth:admin', 'admin'])->group(function () {
-    //     // your admin routes here
-    //     Route::post('/logout',  [UserController::class, 'logout']);
-    // });
-});
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
+Route::delete('delete/{id}', [PekerjaanController::class, 'deletePekerjaan']);
+Route::get('pekerjaan/{user_id}', [PekerjaanController::class, 'getPekerjaByUserId']);
+Route::get('pendidikan', [pendidikanController::class, 'getPendidikan']);

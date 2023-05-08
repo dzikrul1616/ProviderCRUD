@@ -19,19 +19,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'google_id',
-        'email',
-        'password',
-        'institution',
+        'nama',
         'phone',
-        'transport',
-        'photo',
-        'sppd',
-        'ktm',
-        'pernyataan',
-        'transfer',
-        'role',
+        'alamat',
+        'pendidikan'
     ];
 
     /**
@@ -49,19 +40,13 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    public function ekstract()
+  
+    public function pekerjaan()
     {
-        $this->photo = $this->photo ? url('images/' . $this->photo) : null;
-        $this->sppd = $this->sppd ? url('images/' . $this->sppd) : null;
-        $this->ktm = $this->ktm ? url('images/' . $this->ktm) : null;
-        $this->transfer = $this->transfer ? url('images/' . $this->transfer) : null;
+        return $this->hasMany(Pekerjaan::class, 'user_id', 'id');
     }
-    public function presensis()
+    public function user()
     {
-        
-        return $this->hasMany(Presensi::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

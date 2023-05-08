@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Pekerjaan;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -23,24 +24,29 @@ class AdminAuthController extends Controller
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|email|unique:admins|max:255',
-                'password' => 'required|string|min:8',
-                'role' => 'required|string',
+                'noHp' => 'required|string|max:13|unique:users|regex:/^\d{10,13}$/',
+                'alamat' => 'required|string|max:255',
+                'pendidikan' => 'required|string|max:255',
             ]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
-
+        
         $admin = new User();
         $admin->name = $validatedData['name'];
-        $admin->email = $validatedData['email'];
-        $admin->password = Hash::make($validatedData['password']);
-        $admin->role = $validatedData['role'];
+        $admin->noHp = $validatedData['noHp'];
+        $admin->alamat = $validatedData['alamat'];
+        $admin->pendidikan = $validatedData['pendidikan'];
+        $admin->pekerjaan_id = $pekerjaan->id;
         $admin->save();
-
+        
+        $pekerjaan = new Pekerjaan();
+        $pekerjaan->pekerjaan = $validatedData['pekerjaan'];
+        $pekerjaan->tahun = $validatedData['tahun'];
+        $pekerjaan->save();
+        
         return response()->json([
-            'admin' => $admin,
-            'token' => $admin->createToken('Admin Access Token')->accessToken
+            'users' => $admin,
         ]);
     }
 
