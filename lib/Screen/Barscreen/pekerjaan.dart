@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:formstate/Screen/home.dart';
-import 'package:formstate/provider/addeditdata.dart';
+import 'package:formstate/model/model_user.dart';
 import 'package:provider/provider.dart';
+
+import '../../provider/add_edit_data.dart';
 
 class PekerjaanView extends StatefulWidget {
   final String id;
@@ -68,6 +70,9 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                           Expanded(
                             child: TextFormField(
                               controller: provider.namapekerjaanController,
+                              onChanged: (newValue) {
+                                provider.kerja1.pekerjaan = newValue;
+                              },
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.grey[200],
@@ -95,7 +100,11 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              controller: provider.tahunController,
+                              onChanged: (newValue) {
+                                provider.kerja1.waktu = newValue;
+                              },
+                              controller: provider.tahunController
+                                ..text = initialYear.toString(),
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.grey[200],
@@ -112,22 +121,34 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0x19000000),
-                                            blurRadius: 8,
-                                            offset: Offset(2, 6),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text('-1'),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          initialYear--;
+                                        });
+                                        initialYear <= 1
+                                            ? initialYear = 1
+                                            : initialYear = initialYear;
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 8,
+                                              offset: Offset(2, 6),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text('-1'),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -135,22 +156,31 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                                     width: 10.0,
                                   ),
                                   Expanded(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0x19000000),
-                                            blurRadius: 8,
-                                            offset: Offset(2, 6),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text('+1'),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          initialYear++;
+                                        });
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 8,
+                                              offset: Offset(2, 6),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text('+1'),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -170,7 +200,8 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                             width: 90,
                             height: 40,
                             child: ElevatedButton(
-                                onPressed: provider.addPekerjaan,
+                                onPressed: () =>
+                                    provider.addPekerjaan(widget.id),
                                 child: Center(
                                     child: Text(
                                   "Tambah",
@@ -194,8 +225,8 @@ class _PekerjaanViewState extends State<PekerjaanView> {
               child: ElevatedButton(
                   onPressed: () {
                     value.change == true
-                        ? value.addDataToFirebase()
-                        : value.updateDataToFirebase(widget.id!);
+                        ? value.addDataPekerja()
+                        : value.editDataPekerja(widget.id!);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HomeView()));
                   },
@@ -218,7 +249,7 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: value.listsemua.length,
+                    itemCount: value.listPekerjaan.length,
                     physics: const ScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
@@ -247,24 +278,21 @@ class _PekerjaanViewState extends State<PekerjaanView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      value.listpekerjaan[index],
+                                      value.listPekerjaan[index].pekerjaan! +
+                                              ' ' +
+                                              value.listPekerjaan[index]
+                                                  .waktu! ??
+                                          '${value.listPekerjaan[index].toString()}',
                                       style: TextStyle(
-                                        fontSize: 12.0,
-                                      ),
+                                          fontSize: 12.0, color: Colors.black),
                                     ),
                                     const SizedBox(
                                       width: 20.0,
                                     ),
-                                    Text(
-                                      value.listtahun[index],
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
                                   ],
                                 ),
                                 InkWell(
-                                  onTap: () => value.delete(index),
+                                  onTap: () => value.delete(index, widget.id),
                                   child: Icon(
                                     Icons.close,
                                     color: Colors.red,
@@ -283,4 +311,6 @@ class _PekerjaanViewState extends State<PekerjaanView> {
           );
         }));
   }
+
+  int initialYear = 1;
 }

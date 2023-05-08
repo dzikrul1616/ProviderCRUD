@@ -6,8 +6,7 @@ import 'package:formstate/Screen/Barscreen/biodata.dart';
 import 'package:formstate/Screen/Barscreen/pekerjaan.dart';
 import 'package:formstate/Screen/Barscreen/pendidikan.dart';
 import 'package:formstate/Screen/home.dart';
-import 'package:formstate/model/form.dart';
-import 'package:formstate/provider/addeditdata.dart';
+import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
 class FormDataView extends StatefulWidget {
