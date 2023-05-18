@@ -9,7 +9,7 @@ import 'package:formstate/model/model_user.dart';
 import 'package:http/http.dart' as http;
 import '../model/form_data.dart';
 
-class addDataProvider extends ChangeNotifier {
+class AddDataProvider extends ChangeNotifier {
   TextEditingController namaController = TextEditingController();
   TextEditingController nohpController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
@@ -20,9 +20,13 @@ class addDataProvider extends ChangeNotifier {
   List<dynamic> listPekerjaan = [];
   List<String> listSemua = [];
   String? selectedPendidikan;
-
+  List pendidikana = [];
+  ModelUser dataList = ModelUser(
+      id: '', nama: '', alamat: '', phone: '', pendidikan: '', pekerjaan: []);
+  Pekerjaan kerja1 = Pekerjaan(pekerjaan: '', waktu: '');
   bool change = true;
-  addDataProvider(id) {
+  
+  AddDataProvider(id) {
     if (id != '') {
       change = false;
       notifyListeners();
@@ -147,7 +151,7 @@ class addDataProvider extends ChangeNotifier {
     }
   }
 
-  List pendidikana = [];
+  
   Future<void> pendidikanList() async {
     List<String> pendidikan = [];
     QuerySnapshot snapshot =
@@ -162,8 +166,7 @@ class addDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ModelUser dataList = ModelUser(
-      id: '', nama: '', alamat: '', phone: '', pendidikan: '', pekerjaan: []);
+
   getDataid(String id) async {
     try {
       final response = await http.get(Uri.parse(ApiConfig.usersID + id));
@@ -199,7 +202,6 @@ class addDataProvider extends ChangeNotifier {
     }
   }
 
-  Pekerjaan kerja1 = Pekerjaan(pekerjaan: '', waktu: '');
   getPekrjaid(String id) async {
     try {
       final response = await http.get(Uri.parse(ApiConfig.usersID + id));

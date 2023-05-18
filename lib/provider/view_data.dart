@@ -8,24 +8,24 @@ import 'package:http/http.dart' as http;
 import '../const/api.dart';
 
 class ViewData extends ChangeNotifier {
+  List<dynamic> users = [];
+  bool isLoading = true;
+
   ViewData() {
     getDataid();
     notifyListeners();
   }
-  List<dynamic> users = [];
 
   Future<void> getDataid() async {
+    isLoading = false;
     try {
       final response = await http.get(Uri.parse(ApiConfig.usersID));
 
       if (response.statusCode == 200) {
         final user = jsonDecode(response.body)['data'];
-
-        notifyListeners();
         users = user;
         notifyListeners();
-        print(users);
-        print(user);
+        return user;
       } else {
         throw Exception('${response.statusCode}');
       }
@@ -39,7 +39,7 @@ class ViewData extends ChangeNotifier {
     await getDataid();
   }
 
-  deleteData(int id) async {
+  Future<void> deleteData(int id) async {
     final url = Uri.parse(ApiConfig.usersID + '${id}');
     final response = await http.delete(url, body: {"id": id.toString()});
     final data = jsonDecode(response.body);
@@ -54,7 +54,7 @@ class ViewData extends ChangeNotifier {
             msg: '${data['message']}', backgroundColor: Colors.red);
       }
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(msg: '${e}', backgroundColor: Colors.red);
       print(id);
     }
   }

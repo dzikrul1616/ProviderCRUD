@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/Screen/Barscreen/biodata.dart';
-import 'package:formstate/Screen/Barscreen/pekerjaan.dart';
-import 'package:formstate/Screen/Barscreen/pendidikan.dart';
-import 'package:formstate/Screen/home.dart';
+import 'package:formstate/Screen/Barscreen/biodata_page.dart';
+import 'package:formstate/Screen/Barscreen/pekerjaan_page.dart';
+import 'package:formstate/Screen/Barscreen/pendidikan_page.dart';
+import 'package:formstate/Screen/home_view.dart';
 import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +22,8 @@ class _FormDataViewState extends State<FormDataView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (BuildContext context) => addDataProvider(widget.id),
-        child: Consumer<addDataProvider>(builder: (context, value, child) {
+        create: (BuildContext context) => AddDataProvider(widget.id),
+        child: Consumer<AddDataProvider>(builder: (context, value, child) {
           return DefaultTabController(
             length: 3,
             child: Scaffold(

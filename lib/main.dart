@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formstate/Screen/form_data_Screen.dart';
-import 'package:formstate/Screen/home.dart';
+import 'package:formstate/Screen/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

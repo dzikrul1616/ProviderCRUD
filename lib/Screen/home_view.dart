@@ -7,7 +7,6 @@ import 'package:formstate/provider/view_data.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
-
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -257,11 +256,10 @@ class _HomeViewState extends State<HomeView> {
                         },
                       )
                     : FutureBuilder(
-                        future: Future.delayed(Duration(seconds: 3)),
+                        future: value.getDataid(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          if (value.isLoading) {
                             return Center(child: CircularProgressIndicator());
                           } else {
                             return Center(child: Text("Tidak ada data"));

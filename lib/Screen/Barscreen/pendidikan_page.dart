@@ -15,7 +15,7 @@ class _PendidikanViewState extends State<PendidikanView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Consumer<addDataProvider>(builder: (context, value, child) {
+        body: Consumer<AddDataProvider>(builder: (context, value, child) {
       return Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
