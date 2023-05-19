@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formstate/const/api.dart';
 import 'package:formstate/model/model_user.dart';
 import 'package:http/http.dart' as http;
-import '../model/form_data.dart';
 
 class AddDataProvider extends ChangeNotifier {
   TextEditingController namaController = TextEditingController();
@@ -22,12 +21,12 @@ class AddDataProvider extends ChangeNotifier {
   String? selectedPendidikan;
   List pendidikana = [];
   ModelUser dataList = ModelUser(
-      id: '', nama: '', alamat: '', phone: '', pendidikan: '', pekerjaan: []);
+      id: 0, nama: '', alamat: '', phone: '', pendidikan: '', pekerjaan: []);
   Pekerjaan kerja1 = Pekerjaan(pekerjaan: '', waktu: '');
   bool change = true;
-  
+
   AddDataProvider(id) {
-    if (id != '') {
+    if (id != 0) {
       change = false;
       notifyListeners();
       getDataid(id);
@@ -139,7 +138,7 @@ class AddDataProvider extends ChangeNotifier {
   }
 
   void delete(int index, id) {
-    if (id != '') {
+    if (id != 0) {
       listPekerjaan.removeAt(index);
       notifyListeners();
     } else {
@@ -166,10 +165,9 @@ class AddDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  getDataid(String id) async {
+  getDataid(id) async {
     try {
-      final response = await http.get(Uri.parse(ApiConfig.usersID + id));
+      final response = await http.get(Uri.parse(ApiConfig.usersID + '${id}'));
       if (response.statusCode == 200) {
         final user = jsonDecode(response.body)['data'];
         List<Pekerjaan> pekerjaanList = [];
@@ -202,9 +200,9 @@ class AddDataProvider extends ChangeNotifier {
     }
   }
 
-  getPekrjaid(String id) async {
+  getPekrjaid(id) async {
     try {
-      final response = await http.get(Uri.parse(ApiConfig.usersID + id));
+      final response = await http.get(Uri.parse(ApiConfig.usersID + '${id}'));
       if (response.statusCode == 200) {
         final user = jsonDecode(response.body);
         final pekerjaan = user['data']['pekerjaan'];

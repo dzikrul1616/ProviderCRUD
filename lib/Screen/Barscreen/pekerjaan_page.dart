@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../../provider/add_edit_data.dart';
 
 class PekerjaanView extends StatefulWidget {
-  final String id;
+  final int id;
   PekerjaanView({required this.id});
   @override
   State<PekerjaanView> createState() => _PekerjaanViewState();

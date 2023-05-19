@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/Screen/Barscreen/biodata_page.dart';
-import 'package:formstate/Screen/Barscreen/pekerjaan_page.dart';
-import 'package:formstate/Screen/Barscreen/pendidikan_page.dart';
+import 'package:formstate/Screen/barscreen/biodata_page.dart';
+import 'package:formstate/Screen/barscreen/pekerjaan_page.dart';
+import 'package:formstate/Screen/barscreen/pendidikan_page.dart';
 import 'package:formstate/Screen/home_view.dart';
 import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
 class FormDataView extends StatefulWidget {
-  final String? id;
+  final int? id;
   FormDataView({required this.id});
 
   @override
@@ -61,7 +61,7 @@ class _FormDataViewState extends State<FormDataView> {
                       children: [
                         BiodataView(),
                         PendidikanView(),
-                        PekerjaanView(id: widget.id! ?? ""),
+                        PekerjaanView(id: widget.id! ?? 0),
                       ],
                     ),
                   ),
