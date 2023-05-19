@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/Screen/barscreen/biodata_page.dart';
-import 'package:formstate/Screen/barscreen/pekerjaan_page.dart';
-import 'package:formstate/Screen/barscreen/pendidikan_page.dart';
-import 'package:formstate/Screen/home_view.dart';
+import 'package:formstate/screen/barscreen/biodata_page.dart';
+import 'package:formstate/screen/barscreen/pekerjaan_page.dart';
+import 'package:formstate/screen/barscreen/pendidikan_page.dart';
+import 'package:formstate/screen/home_view.dart';
 import 'package:formstate/provider/add_edit_data.dart';
 import 'package:provider/provider.dart';
 
