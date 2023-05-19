@@ -10,20 +10,21 @@ import '../const/api.dart';
 class ViewData extends ChangeNotifier {
   List<dynamic> users = [];
   bool isLoading = true;
-
+  bool get _isLoading => isLoading;
   ViewData() {
     getDataid();
-    notifyListeners();
   }
 
   Future<void> getDataid() async {
-    isLoading = false;
+    isLoading = true;
+    notifyListeners();
     try {
       final response = await http.get(Uri.parse(ApiConfig.usersID));
 
       if (response.statusCode == 200) {
         final user = jsonDecode(response.body)['data'];
         users = user;
+        isLoading = false;
         notifyListeners();
         return user;
       } else {

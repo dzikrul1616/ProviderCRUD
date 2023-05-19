@@ -1,6 +1,6 @@
 class ApiConfig {
   /// Main
-  static const baseUrl = "http://192.168.1.12:8000";
+  static const baseUrl = "http://192.168.1.3:8000";
 
   /// End Points
   static const api = "$baseUrl/api";
