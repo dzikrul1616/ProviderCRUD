@@ -7,7 +7,7 @@ String modelUserToJson(List<ModelUser> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ModelUser {
-  int? id; 
+  int? id;
   String? nama;
   String? alamat;
   String? pendidikan;

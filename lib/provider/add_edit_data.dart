@@ -150,7 +150,6 @@ class AddDataProvider extends ChangeNotifier {
     }
   }
 
-  
   Future<void> pendidikanList() async {
     List<String> pendidikan = [];
     QuerySnapshot snapshot =
