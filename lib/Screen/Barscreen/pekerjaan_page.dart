@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:formstate/Screen/home.dart';
+import 'package:formstate/Screen/home_view.dart';
 import 'package:formstate/model/model_user.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/add_edit_data.dart';
 
 class PekerjaanView extends StatefulWidget {
-  final String id;
+  final int id;
   PekerjaanView({required this.id});
   @override
   State<PekerjaanView> createState() => _PekerjaanViewState();
@@ -22,7 +22,7 @@ class _PekerjaanViewState extends State<PekerjaanView> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Consumer<addDataProvider>(builder: (context, provider, child) {
+          child: Consumer<AddDataProvider>(builder: (context, provider, child) {
             return Container(
                 width: MediaQuery.of(context).size.width,
                 height: 260,
@@ -216,7 +216,7 @@ class _PekerjaanViewState extends State<PekerjaanView> {
           }),
         ),
         bottomNavigationBar:
-            Consumer<addDataProvider>(builder: (context, value, child) {
+            Consumer<AddDataProvider>(builder: (context, value, child) {
           return Padding(
             padding: EdgeInsets.all(20),
             child: Container(
@@ -238,7 +238,7 @@ class _PekerjaanViewState extends State<PekerjaanView> {
             ),
           );
         }),
-        body: Consumer<addDataProvider>(builder: (context, value, child) {
+        body: Consumer<AddDataProvider>(builder: (context, value, child) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(

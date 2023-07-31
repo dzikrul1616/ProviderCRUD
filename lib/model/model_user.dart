@@ -1,11 +1,17 @@
+import 'dart:convert';
+
+List<ModelUser> modelUserFromJson(String str) =>
+    List<ModelUser>.from(json.decode(str).map((x) => ModelUser.fromJson(x)));
+
+String modelUserToJson(List<ModelUser> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class ModelUser {
-  String? id;
+  int? id;
   String? nama;
   String? alamat;
   String? pendidikan;
   String? phone;
-  String? createdAt;
-  String? updatedAt;
   List<Pekerjaan>? pekerjaan;
 
   ModelUser({
@@ -14,8 +20,6 @@ class ModelUser {
     this.alamat,
     this.pendidikan,
     this.phone,
-    this.createdAt,
-    this.updatedAt,
     this.pekerjaan,
   });
 
@@ -25,47 +29,40 @@ class ModelUser {
     alamat = json['alamat'];
     pendidikan = json['pendidikan'];
     phone = json['phone'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+
     if (json['pekerjaan'] != null) {
       pekerjaan = <Pekerjaan>[];
       json['pekerjaan'].forEach((v) {
-        pekerjaan!.add(new Pekerjaan.fromJson(v));
+        pekerjaan!.add(Pekerjaan.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nama'] = this.nama;
-    data['alamat'] = this.alamat;
-    data['pendidikan'] = this.pendidikan;
-    data['phone'] = this.phone;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.pekerjaan != null) {
-      data['pekerjaan'] = this.pekerjaan!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['nama'] = nama;
+    data['alamat'] = alamat;
+    data['pendidikan'] = pendidikan;
+    data['phone'] = phone;
+    if (pekerjaan != null) {
+      data['pekerjaan'] = pekerjaan!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Pekerjaan {
-  String? id;
+  int? id;
   String? pekerjaan;
-  String? userId;
+  int? userId;
   String? waktu;
-  String? createdAt;
-  String? updatedAt;
 
   Pekerjaan({
     this.id,
     this.pekerjaan,
     this.userId,
     this.waktu,
-    this.createdAt,
-    this.updatedAt,
   });
 
   Pekerjaan.fromJson(Map<String, dynamic> json) {
@@ -73,18 +70,14 @@ class Pekerjaan {
     pekerjaan = json['pekerjaan'];
     userId = json['user_id'];
     waktu = json['waktu'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['pekerjaan'] = this.pekerjaan;
-    data['user_id'] = this.userId;
-    data['waktu'] = this.waktu;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['pekerjaan'] = pekerjaan;
+    data['user_id'] = userId;
+    data['waktu'] = waktu;
     return data;
   }
 }
